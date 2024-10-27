@@ -49,7 +49,7 @@
     	<define name="INDIECROSS_ASSETS" />
 	</section>
 	<define name="HXVLC_ALLOWED" if="ios" /> <!-- If you want to use hxvlc Enable This -->
-	<define name="HXCODEC_ALLOWED" /> <!-- Same as HXVLC_ALLOWED -->
+	<define name="HXCODEC_ALLOWED" unless="ios" /> <!-- Same as HXVLC_ALLOWED -->
 	<define name="HIDE_CURSOR" if="mobile" /> <!-- DELETE THIS IF YOU WANT TO SEE CURSOR IN PC BUILDS -->
 	<define name="INDIECROSS_ASSETS" if="cross_enabled" /> <!-- DELETE THIS IF YOU DONT WANT INDIE CROSS ASSETS -->
 	<define name="INDIECROSS_FORCED" if="cross_forced" /> <!-- DELETE THIS TO REMOVE FORCED INDIE CROSS MENUS ON INDIE CROSS MODS -->
