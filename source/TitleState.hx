@@ -35,7 +35,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 
-#if VIDEOS_ALLOWED
+#if HXCODEC_ALLOWED
 import backend.VideoHandler_Title;
 #end
 
@@ -60,7 +60,7 @@ class TitleState extends MusicBeatState
 
     public static var IndieCrossEnabled:Bool = false;
 	public static var initialized:Bool = false;
-	public static var inGame:Bool = false;
+	public static var inGame:Bool = #if HXCODEC_ALLOWED true #else false #end;
 	var checkOpenFirst:Bool = false;
 	var skipVideo:FlxText;
 
@@ -812,7 +812,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 	
-	#if VIDEOS_ALLOWED
+	#if HXCODEC_ALLOWED
 	var video:VideoSprite;
 	function startVideo(name:String)
 	{
@@ -825,7 +825,7 @@ class TitleState extends MusicBeatState
 		skipVideo.antialiasing = ClientPrefs.data.antialiasing;
 		
 		
-		#if VIDEOS_ALLOWED
+		#if HXCODEC_ALLOWED
 		var filepath:String = Paths.video(name);
 		#if sys
 		if(!FileSystem.exists(filepath))
