@@ -35,7 +35,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 
-#if HXCODEC_ALLOWED
+#if VIDEOS_ALLOWED
 import backend.VideoHandler_Title;
 #end
 
