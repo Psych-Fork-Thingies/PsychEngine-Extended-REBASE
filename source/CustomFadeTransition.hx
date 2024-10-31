@@ -2,6 +2,7 @@ package;
 
 import flixel.util.FlxGradient;
 import flixel.FlxSubState;
+import flixel.FlxCamera;
 
 class CustomFadeTransition extends FlxSubState {
 	public static var finishCallback:Void->Void;
@@ -20,7 +21,11 @@ class CustomFadeTransition extends FlxSubState {
 
 	override function create()
 	{
+	    var cam:FlxCamera = new FlxCamera();
+	    cam.bgColor = 0x00;
+    	FlxG.cameras.add(cam, false);
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
+		
 		var width:Int = Std.int(FlxG.width / Math.max(camera.zoom, 0.001));
 		var height:Int = Std.int(FlxG.height / Math.max(camera.zoom, 0.001));
 		transGradient = FlxGradient.createGradientFlxSprite(1, height, (isTransIn ? [0x0, FlxColor.BLACK] : [FlxColor.BLACK, 0x0]));
@@ -28,6 +33,7 @@ class CustomFadeTransition extends FlxSubState {
 		transGradient.updateHitbox();
 		transGradient.scrollFactor.set();
 		transGradient.screenCenter(X);
+		transGradient.cameras = [cam];
 		add(transGradient);
 
 		transBlack = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
@@ -35,6 +41,7 @@ class CustomFadeTransition extends FlxSubState {
 		transBlack.updateHitbox();
 		transBlack.scrollFactor.set();
 		transBlack.screenCenter(X);
+		transBlack.cameras = [cam];
 		add(transBlack);
 		
 		if (ClientPrefs.data.TransitionStyle == 'Extended')
@@ -47,6 +54,7 @@ class CustomFadeTransition extends FlxSubState {
         	LoadBF.scale.y = 0.3;
         	LoadBF.scrollFactor.set();
         	LoadBF.antialiasing = ClientPrefs.data.antialiasing;
+        	LoadBF.cameras = [cam];
         	add(LoadBF);
     	}
 
@@ -57,7 +65,7 @@ class CustomFadeTransition extends FlxSubState {
 
 		super.create();
 	}
-
+	
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 

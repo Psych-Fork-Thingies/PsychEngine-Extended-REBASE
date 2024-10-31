@@ -46,7 +46,7 @@ class CustomFunctions
 		});
 	}
 	
-	public function debugPrintFunction(text1:Dynamic = '', text2:Dynamic = '', text3:Dynamic = '', text4:Dynamic = '', text5:Dynamic = '')
+	public static function debugPrintFunction(text1:Dynamic = '', text2:Dynamic = '', text3:Dynamic = '', text4:Dynamic = '', text5:Dynamic = '')
 	{
 	    if (text1 == null) text1 = '';
 		if (text2 == null) text2 = '';
