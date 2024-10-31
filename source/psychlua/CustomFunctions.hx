@@ -14,9 +14,9 @@ class CustomFunctions
 			PlayState.instance.saveScore();
 		});
 		
-		Lua_helper.add_callback(lua, "ChangeFPSCounterText", function(text:String = null):Void
+		Lua_helper.add_callback(lua, "ChangeFPSCounterText", function(text:Dynamic = null, text2:Dynamic = null, text3:Dynamic = null, text4:Dynamic = null, text5:Dynamic = null):Void
 		{
-			FunkinLua.FPSCounterText = text;
+			FunkinLua.FPSCounterText = text + text2 + text3 + text4 + text5;
 		});
 		
 		Lua_helper.add_callback(lua, "saveWeekScore", function():Void
