@@ -3,7 +3,7 @@ package psychlua;
 import FunkinLua;
 import tjson.TJSON as Json;
 
-class MobileFunctions
+class CustomFunctions
 {
 	public static function implement(funk:FunkinLua)
 	{
@@ -53,6 +53,6 @@ class MobileFunctions
 		if (text3 == null) text3 = '';
 		if (text4 == null) text4 = '';
 		if (text5 == null) text5 = '';
-		luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
+		FunkinLua.luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
 	}
 }
