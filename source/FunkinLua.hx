@@ -3751,8 +3751,6 @@ class HScript
 		interp.variables.set('Conductor', Conductor);
 		interp.variables.set('ClientPrefs.data', ClientPrefs.data);
 		interp.variables.set('ClientPrefs', ClientPrefs.data); //For 0.6.3 Mods
-		interp.variables.set('Memory', flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas)); //For Lua
-		interp.variables.set('FPS', debug.FPSCounter.currentFPS); //For Lua
 		interp.variables.set('GlobalClientPrefs', ClientPrefs);
 		interp.variables.set('Character', Character);
 		interp.variables.set('Alphabet', Alphabet);

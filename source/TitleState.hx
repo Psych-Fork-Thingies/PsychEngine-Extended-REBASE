@@ -60,7 +60,7 @@ class TitleState extends MusicBeatState
 
     public static var IndieCrossEnabled:Bool = false;
 	public static var initialized:Bool = false;
-	public static var inGame:Bool = #if HXCODEC_ALLOWED true #else false #end;
+	public static var inGame:Bool = false;
 	var checkOpenFirst:Bool = false;
 	var skipVideo:FlxText;
 
@@ -247,9 +247,7 @@ class TitleState extends MusicBeatState
 			startIntro();
 			return;
 		}
-		#if HXCODEC_ALLOWED
 		startVideo('title');
-		#end
 	}
 	
 	function startCutscenesOut()
@@ -814,7 +812,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 	
-	#if HXCODEC_ALLOWED
+	#if VIDEOS_ALLOWED
 	var video:VideoSprite;
 	function startVideo(name:String)
 	{
@@ -827,7 +825,7 @@ class TitleState extends MusicBeatState
 		skipVideo.antialiasing = ClientPrefs.data.antialiasing;
 		
 		
-		#if HXCODEC_ALLOWED
+		#if VIDEOS_ALLOWED
 		var filepath:String = Paths.video(name);
 		#if sys
 		if(!FileSystem.exists(filepath))
