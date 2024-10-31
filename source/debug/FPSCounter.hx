@@ -78,11 +78,16 @@ class FPSCounter extends TextField
 
 	public dynamic function updateText():Void // so people can override it in hscript
 	{
-		text = 
-		'FPS: $currentFPS' + 
-		'\nPsych Extended 1.0.0' + 
-		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}' +
-		os;
+	    if (FunkinLua.FPSCounterText == null) {
+    		text = 
+    		'FPS: $currentFPS' + 
+    		'\nPsych Extended 1.0.0 - Hotfix' + 
+    		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}' +
+    		os;
+    	} else {
+    	    text = 
+    		FunkinLua.FPSCounterText;
+    	}
 
 		textColor = 0xFFFFFFFF;
 		if (currentFPS < FlxG.drawFramerate * 0.5)

@@ -8,6 +8,7 @@ import llua.State;
 import llua.Convert;
 #end
 
+import psychlua.CustomFunctions;
 import psychlua.LuaUtils;
 import psychlua.LuaUtils.LuaTweenOptions;
 
@@ -82,6 +83,7 @@ class FunkinLua {
 	public var extra2:String = ClientPrefs.data.extraKeyReturn2.toUpperCase();
 	public var extra3:String = ClientPrefs.data.extraKeyReturn3.toUpperCase();
 	public var extra4:String = ClientPrefs.data.extraKeyReturn4.toUpperCase();
+	public static var FPSCounterText:String = null;
 
 	#if hscript
 	public static var hscript:HScript = null;
@@ -1052,7 +1054,9 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
+			//Old Version And Custom Menu Support
 			if (classVar == 'ClientPrefs') variable = 'data.' + variable;
+			if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			var myClass:Dynamic = classCheck(classVar);
 			var variableplus:String = varCheck(myClass, variable);
 			var killMe:Array<String> = variable.split('.');
@@ -1073,7 +1077,9 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			@:privateAccess
+			//Old Version And Custom Menu Support
 			if (classVar == 'ClientPrefs') variable = 'data.' + variable;
+			if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
@@ -3028,59 +3034,14 @@ class FunkinLua {
 			return list;
 		});
 		
-		Lua_helper.add_callback(lua, "saveScore", function():Void
-		{
-			PlayState.instance.saveScore();
-		});
-		
-		Lua_helper.add_callback(lua, "saveWeekScore", function():Void
-		{
-			PlayState.instance.saveWeekScore();
-		});
-		
-		Lua_helper.add_callback(lua, "showPopUp", function(message:String, title:String):Void
-		{
-			CoolUtil.showPopUp(message, title);
-		});
-		
-		Lua_helper.add_callback(lua, "showPopUp", function(message:String, title:String):Void
-		{
-			CoolUtil.showPopUp(message, title);
-		});
-		
-		Lua_helper.add_callback(lua, "parseJson", function(directory:String, ?ignoreMods:Bool = false):Dynamic //For Vs Steve Bedrock Edition Psych Port
-		{
-            final funnyPath:String = directory + '.json';
-            final jsonContents:String = Paths.getTextFromFile(funnyPath, ignoreMods);
-            final realPath:String = (ignoreMods ? '' : Paths.modFolders(Paths.currentModDirectory)) + '/' + funnyPath;
-            final jsonExists:Bool = Paths.fileExists(realPath, null, ignoreMods);
-            if (jsonContents != null || jsonExists) return Json.parse(jsonContents);
-            else if (!jsonExists && PlayState.chartingMode) debugPrintFunction('parseJson: "' + realPath + '" doesn\'t exist!', 0xff0000);
-            return null;
-		});
-		
-		Lua_helper.add_callback(lua, "CloseGame", function():Void
-		{
-			lime.system.System.exit(1);
-		});
-		
 		#if ACHIEVEMENTS_ALLOWED Achievements.addLuaCallbacks(lua); #end
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
 		#if android AndroidFunctions.implement(this); #end
 		MobileFunctions.implement(this);
+		CustomFunctions.implement(this);
 
 		call('onCreate', []);
 		#end
-	}
-	
-	public function debugPrintFunction(text1:Dynamic = '', text2:Dynamic = '', text3:Dynamic = '', text4:Dynamic = '', text5:Dynamic = '')
-	{
-	    if (text1 == null) text1 = '';
-		if (text2 == null) text2 = '';
-		if (text3 == null) text3 = '';
-		if (text4 == null) text4 = '';
-		if (text5 == null) text5 = '';
-		luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
 	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
