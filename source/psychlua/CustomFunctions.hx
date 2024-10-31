@@ -2,6 +2,7 @@ package psychlua;
 
 import FunkinLua;
 import tjson.TJSON as Json;
+import debug.FPSCounter;
 
 class CustomFunctions
 {
@@ -17,12 +18,12 @@ class CustomFunctions
 		Lua_helper.add_callback(lua, "ChangeFPSCounterText", function(text:String = null, text2:String = null, text3:String = null):Void
 		{
 		    //I know This is Weird But I'm just Testing
-		    if (text == "Memory") text = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text2 == "Memory") text2 = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text3 == "Memory") text3 = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text == "FPS") text = debug.FPSCounter.currentFPS;
-		    if (text2 == "FPS") text2 = debug.FPSCounter.currentFPS;
-		    if (text3 == "FPS") text3 = debug.FPSCounter.currentFPS;
+		    if (text == "Memory") text = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text2 == "Memory") text2 = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text3 == "Memory") text3 = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text == "FPS") text = '$FPSCounter.currentFPS';
+		    if (text2 == "FPS") text2 = '$FPSCounter.currentFPS';
+		    if (text3 == "FPS") text3 = '$FPSCounter.currentFPS';
 		    
 		    if (text2 != null && text3 != null) FunkinLua.FPSCounterText = text + text2 + text3;
 		    else if (text2 != null && text3 == null) FunkinLua.FPSCounterText = text + text2;
@@ -33,16 +34,16 @@ class CustomFunctions
 		Lua_helper.add_callback(lua, "ChangeFPSCounterTextAlternative", function(text:String = null, text2:String = null, text3:String = null, text4:String = null, text5:String = null):Void
 		{
 		    //I know This is Weird But I'm just Testing
-		    if (text == "Memory") text = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text2 == "Memory") text2 = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text3 == "Memory") text3 = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text4 == "Memory") text4 = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text5 == "Memory") text5 = flixel.util.FlxStringUtil.formatBytes(debug.FPSCounter.memoryMegas);
-		    if (text == "FPS") text = debug.FPSCounter.currentFPS;
-		    if (text2 == "FPS") text2 = debug.FPSCounter.currentFPS;
-		    if (text3 == "FPS") text3 = debug.FPSCounter.currentFPS;
-		    if (text4 == "FPS") text4 = debug.FPSCounter.currentFPS;
-		    if (text5 == "FPS") text5 = debug.FPSCounter.currentFPS;
+		    if (text == "Memory") text = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text2 == "Memory") text2 = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text3 == "Memory") text3 = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text4 == "Memory") text4 = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text5 == "Memory") text5 = flixel.util.FlxStringUtil.formatBytes(FPSCounter.memoryMegas);
+		    if (text == "FPS") text = '$FPSCounter.currentFPS';
+		    if (text2 == "FPS") text2 = '$FPSCounter.currentFPS';
+		    if (text3 == "FPS") text3 = '$FPSCounter.currentFPS';
+		    if (text4 == "FPS") text4 = '$FPSCounter.currentFPS';
+		    if (text5 == "FPS") text5 = '$FPSCounter.currentFPS';
 		    
 		    FunkinLua.FPSCounterText = text + text2 + text3 + text4 + text5;
 		});
