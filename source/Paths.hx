@@ -240,7 +240,7 @@ class Paths
 	inline static public function music(key:String, ?library:String):Sound
 	{
 		var file:Sound = returnSound('music', key, library);
-		if (ClientPrefs.data.FreakyMenu == 'Psych' && key == 'freakyMenu' && !FileSystem.exists(modsSounds('music', 'freakyMenuPsych')) //better
+		if (ClientPrefs.data.FreakyMenu == 'Psych' && key == 'freakyMenu' && !FileSystem.exists(modsSounds('music', 'freakyMenuPsych'))) //better
 		    file = returnSound('music', 'freakyMenuPsych', library);
 		return file;
 	}
