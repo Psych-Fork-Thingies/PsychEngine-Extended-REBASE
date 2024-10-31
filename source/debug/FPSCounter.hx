@@ -30,6 +30,8 @@ class FPSCounter extends TextField
 		The current memory usage (WARNING: this is NOT your total program memory usage, rather it shows the garbage collector memory)
 	**/
 	public static var memoryMegas(get, never):Float;
+	
+	public static var FPSThing:String = '$currentFPS';
 
 	@:noCompletion private var times:Array<Float>;
 
@@ -78,6 +80,7 @@ class FPSCounter extends TextField
 
 	public dynamic function updateText():Void // so people can override it in hscript
 	{
+	    FPSThing = '$currentFPS';
 	    if (FunkinLua.FPSCounterText == null) {
     		text = 
     		'FPS: $currentFPS' + 
