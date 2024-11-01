@@ -35,7 +35,8 @@ class FPSCounter extends TextField
 
 	@:noCompletion private var times:Array<Float>;
 
-	public static var os:String = '';
+	public var os:String = '';
+	public static var oslua:String = '';
 
 	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
 	{
@@ -45,6 +46,11 @@ class FPSCounter extends TextField
 			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end;
 		else
 			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end + ' - ${LimeSystem.platformVersion}';
+			
+		if (LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null)
+			oslua = '${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end;
+		else
+			oslua = '${LimeSystem.platformName}' #if cpp + ' ${getArch() != 'Unknown' ? getArch() : ''}' #end + ' - ${LimeSystem.platformVersion}';
 
 		positionFPS(x, y);
 
@@ -78,7 +84,7 @@ class FPSCounter extends TextField
 		deltaTimeout = 0.0;
 	}
 
-	public dynamic function updateText():Void // so people can override it in hscript
+	public dynamic function updateText():Void
 	{
 	    FPSThing = '$currentFPS';
 	    if (FunkinLua.FPSCounterText == null) {
