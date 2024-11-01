@@ -30,12 +30,12 @@ class CustomFunctions
     		if (text4 == "FPS") text4 = FPSCounter.FPSThing;
     		if (text5 == "FPS") text5 = FPSCounter.FPSThing;
     		if (text6 == "FPS") text6 = FPSCounter.FPSThing;
-    		if (text1 == "OS") text1 = FPSCounter.os;
-    		if (text2 == "OS") text2 = FPSCounter.os;
-    		if (text3 == "OS") text3 = FPSCounter.os;
-    		if (text4 == "OS") text4 = FPSCounter.os;
-    		if (text5 == "OS") text5 = FPSCounter.os;
-    		if (text6 == "OS") text6 = FPSCounter.os;
+    		if (text1 == "OS") text1 = FPSCounter.oslua;
+    		if (text2 == "OS") text2 = FPSCounter.oslua;
+    		if (text3 == "OS") text3 = FPSCounter.oslua;
+    		if (text4 == "OS") text4 = FPSCounter.oslua;
+    		if (text5 == "OS") text5 = FPSCounter.oslua;
+    		if (text6 == "OS") text6 = FPSCounter.oslua;
 		    
 		    if (text1 == '' && text2 == '' && text3 == '' && text4 == '' && text5 == '' && text6 == '')
 		        FunkinLua.FPSCounterText = null;
