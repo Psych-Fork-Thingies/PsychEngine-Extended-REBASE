@@ -163,6 +163,15 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 		
+		var option:Option = new Option('Main Menu Song:',
+			"What song do you prefer for the Main Menu?",
+			'FreakyMenu',
+			'string',
+			'Psych',
+			['Extended', 'Psych']);
+		addOption(option);
+		option.onChange = onChangeMenuMusic;
+		
 		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',
 			'On Release builds, turn this on to check for updates when you start the game.',
