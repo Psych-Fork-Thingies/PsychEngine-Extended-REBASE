@@ -40,7 +40,7 @@ class CustomFunctions
 		    if (text1 == '' && text2 == '' && text3 == '' && text4 == '' && text5 == '' && text6 == '')
 		        FunkinLua.FPSCounterText = null;
 		    else
-		        FunkinLua.FPSCounterText = text1 + text2 + text3 + text4 + text5;
+		        FunkinLua.FPSCounterText = text1 + text2 + text3 + text4 + text5 + text6;
 		});
 		
 		Lua_helper.add_callback(lua, "saveWeekScore", function():Void
