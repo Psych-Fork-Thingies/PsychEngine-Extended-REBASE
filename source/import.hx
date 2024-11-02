@@ -25,8 +25,6 @@ import psychlua.*; //Psych-LUA
 import backend.ui.*; //Psych-UI
 import mobile.psychlua.Functions;
 import objects.Alphabet as AlphabetNew;
-import extras.options.BaseSettingsMenu;
-import extras.options.Option as OptionNew;
 import objects.AttachedText as AttachedTextNew;
 import backend.animation.PsychAnimationController; //Psych Animation Controller
 

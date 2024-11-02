@@ -69,7 +69,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			"Choose VirtualPad Skin",
 			'VirtualPadSkin',
 			'string',
-			'original',
 			virtualpadSkinList);
 
 		addOption(option);
@@ -79,8 +78,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
 			'Changes VirtualPad Alpha -cool feature',
 			'VirtualPadAlpha',
-			'float',
-			#if mobile 0.75 #else 0 #end);
+			'percent');
 		option.scrollSpeed = 1.6;
 		option.minValue = 0;
 		option.maxValue = 1;
@@ -94,8 +92,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		var option:Option = new Option('Colored VirtualPad',
 			'If unchecked, disables VirtualPad colors\n(can be used to make custom colored VirtualPad)',
 			'coloredvpad',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 		option.onChange = resetVirtualPad;
 		
@@ -103,15 +100,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'Which VirtualPad should use??',
 			'virtualpadType',
 			'string',
-			null,
 			virtualpadTypes);
 		addOption(option);
 		
 		var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
 			'extraKeys',
-			'float',
-			2);
+			'percent');
 		option.scrollSpeed = 1.6;
 		option.minValue = 0;
 		option.maxValue = 4;
@@ -124,7 +119,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		"Choose Extra Control Location",
 		'hitboxLocation',
 		'string',
-		'Bottom',
 		['Bottom', 'Top', 'Middle']);
 	addOption(option);
 		  
@@ -132,7 +126,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		"Choose your Hitbox Style!  -mariomaster",
 		'hitboxmode',
 		'string',
-		'New',
 		['Classic', 'New']);
 	addOption(option);
 		  
@@ -140,22 +133,19 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		"Choose how your hitbox should look like.",
 		'hitboxtype',
 		'string',
-		'Gradient',
 		['Gradient', 'No Gradient' , 'No Gradient (Old)']);
 	addOption(option);
 
 	var option:Option = new Option('Hitbox Hint',
 		'Hitbox Hint -I hate this',
 		'hitboxhint',
-		'bool',
-		false);
+		'bool');
 	addOption(option);
 		
 	var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
 		'Changes hitbox opacity -omg',
 		'hitboxalpha',
-		'float',
-		0.7);
+		'percent');
 	option.scrollSpeed = 1.6;
 	option.minValue = 0.0;
 	option.maxValue = 1;
@@ -167,8 +157,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	var option:Option = new Option('Wide Screen Mode',
 		'If checked, The game will stetch to fill your whole screen. (WARNING: Can result in bad visuals & break some mods that resizes the game/cameras)',
 		'wideScreen',
-		'bool',
-		true);
+		'bool');
 	option.onChange = () -> FlxG.scaleMode = new MobileScaleMode();
 	addOption(option);
 	#end
@@ -178,7 +167,6 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		'Which folder Psych Engine should use?',
 		'storageType',
 		'string',
-		null,
 		storageTypes);
 		addOption(option);
 	#end

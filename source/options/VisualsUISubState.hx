@@ -43,39 +43,34 @@ class VisualsUISubState extends BaseOptionsMenu
 			"Choose your Freeplay Menu Style",
 			'FreeplayStyle',
 			'string',
-			'Psych',
 			['Psych', 'NovaFlare', 'NF']);
 		addOption(option);
 		
 		var option:Option = new Option('Main Menu Style:',
 			"Choose your Main Menu Style",
 			'MainMenuStyle',
-			'string',
-			'1.0',
+			'string'
 			['1.0', 'NovaFlare', '0.6.3', 'Extended']);
 		addOption(option);
 		
 		var option:Option = new Option('Pause Menu Style:',
 			"Choose your Pause Menu Style",
 			'PauseMenuStyle',
-			'string',
-			'Psych',
+			'string'
 			['Psych', 'NovaFlare']);
 		addOption(option);
 		
 		var option:Option = new Option('Transition Style:',
 			"Choose your Transition Style",
 			'TransitionStyle',
-			'string',
-			'Psych',
+			'string'
 			['Psych', 'NovaFlare', 'Extended']);
 		addOption(option);
 		
 		var option:Option = new Option('Note Skin:',
 			"Choose Note Skin",
 			'NoteSkin',
-			'string',
-			'original',
+			'string'
 			noteSkinList);	
 		option.showNote = true;
 		addOption(option);
@@ -85,8 +80,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Indie Cross Menus',
 			'If unchecked, Indie Cross Mods not using Custom Menus (if you have any bug disable this).',
 			'IndieCrossMenus',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 		option.onChange = changeIndieCrossMenus;
 		#end
@@ -94,51 +88,44 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
 			'noteSplashes',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Hide HUD',
 			'If checked, hides most HUD elements.',
 			'hideHud',
-			'bool',
-			false);
+			'bool');
 		addOption(option);
 		
 		var option:Option = new Option('Time Bar:',
 			"What should the Time Bar display?",
 			'timeBarType',
 			'string',
-			'Time Left',
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
 		var option:Option = new Option('Flashing Lights',
 			"Uncheck this if you're sensitive to flashing lights!",
 			'flashing',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Camera Zooms',
 			"If unchecked, the camera won't zoom in on a beat hit.",
 			'camZooms',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Score Text Zoom on Hit',
 			"If unchecked, disables the Score text zooming\neverytime you hit a note.",
 			'scoreZoom',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Health Bar Transparency',
 			'How much transparent should the health bar and icons be.',
 			'healthBarAlpha',
-			'percent',
-			1);
+			'percent');
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;
@@ -149,8 +136,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('FPS Counter',
 			'If unchecked, hides FPS Counter.',
 			'showFPS',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 
@@ -158,7 +144,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			"What song do you prefer for the Pause Screen?",
 			'pauseMusic',
 			'string',
-			'Tea Time',
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
@@ -167,7 +152,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			"What song do you prefer for the Main Menu?",
 			'FreakyMenu',
 			'string',
-			'Psych',
 			['Extended', 'Psych']);
 		addOption(option);
 		option.onChange = onChangeMenuMusic;
@@ -176,16 +160,14 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Check for Updates',
 			'On Release builds, turn this on to check for updates when you start the game.',
 			'checkForUpdates',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 		#end
 
 		var option:Option = new Option('Combo Stacking',
 			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
 			'comboStacking',
-			'bool',
-			true);
+			'bool');
 		addOption(option);
 
 		super();
