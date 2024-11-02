@@ -255,8 +255,8 @@ class ModsMenuState extends MusicBeatState
 			var curMod:ModItem = modsGroup.members[curSelectedMod];
 			if(curMod != null && curMod.settings != null && curMod.settings.length > 0)
 			{
+			    #if mobile persistentUpdate = true; #end //for Mobile Controls
 				openSubState(new ModSettingsSubState(curMod.settings, curMod.folder, curMod.name));
-				persistentUpdate = true; //for Mobile Controls
 			}
 		}, 54, 54);
 
@@ -368,7 +368,7 @@ class ModsMenuState extends MusicBeatState
         		isFreePlay = false;
 			}
 
-			persistentUpdate = false;
+			#if desktop persistentUpdate = false; #end
 			FlxG.autoPause = true;
 			#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 			return;
@@ -604,12 +604,12 @@ class ModsMenuState extends MusicBeatState
 	override function closeSubState() // not needed but i want to use this (idk why)
 	{
 		super.closeSubState();
-		persistentUpdate = false; //for Mobile Controls
 		#if mobile
 		removeVirtualPad();
     	addVirtualPad(UP_DOWN, B);
     	_virtualpad.y -= 215; // so that you can press the buttons.
     	_virtualpad.alpha = 0.3;
+    	persistentUpdate = false; //for Mobile Controls
 		#end
 	}
 
