@@ -256,6 +256,7 @@ class ModsMenuState extends MusicBeatState
 			if(curMod != null && curMod.settings != null && curMod.settings.length > 0)
 			{
 				openSubState(new ModSettingsSubState(curMod.settings, curMod.folder, curMod.name));
+				persistentUpdate = true; //for Mobile Controls
 			}
 		}, 54, 54);
 
@@ -603,6 +604,7 @@ class ModsMenuState extends MusicBeatState
 	override function closeSubState() // not needed but i want to use this (idk why)
 	{
 		super.closeSubState();
+		persistentUpdate = false; //for Mobile Controls
 		#if mobile
 		removeVirtualPad();
     	addVirtualPad(UP_DOWN, B);
