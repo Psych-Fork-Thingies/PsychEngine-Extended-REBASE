@@ -271,7 +271,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET || _virtualpad.buttonC.justPressed)
+			if(controls.RESET || MusicBeatState._virtualpad.buttonC.justPressed)
 			{
 				var leOption:Option = optionsArray[curSelected];
 				if(leOption.type != 'keybind')

@@ -289,32 +289,32 @@ class MenuCharacterEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.ESCAPE  #if android || FlxG.android.justReleased.BACK #end #if ios || _virtualpad.buttonB.pressed #end) {
+			if(FlxG.keys.justPressed.ESCAPE  #if android || FlxG.android.justReleased.BACK #end #if ios || MusicBeatState._virtualpad.buttonB.pressed #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT || _virtualpad.buttonA.pressed) shiftMult = 10;
+			if(FlxG.keys.pressed.SHIFT || MusicBeatState._virtualpad.buttonA.pressed) shiftMult = 10;
 
-			if(FlxG.keys.justPressed.LEFT || _virtualpad.buttonLeft.justPressed) {
+			if(FlxG.keys.justPressed.LEFT || MusicBeatState._virtualpad.buttonLeft.justPressed) {
 				characterFile.position[0] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.RIGHT || _virtualpad.buttonRight.justPressed) {
+			if(FlxG.keys.justPressed.RIGHT || MusicBeatState._virtualpad.buttonRight.justPressed) {
 				characterFile.position[0] -= shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.UP || _virtualpad.buttonUp.justPressed) {
+			if(FlxG.keys.justPressed.UP || MusicBeatState._virtualpad.buttonUp.justPressed) {
 				characterFile.position[1] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.DOWN || _virtualpad.buttonDown.justPressed) {
+			if(FlxG.keys.justPressed.DOWN || MusicBeatState._virtualpad.buttonDown.justPressed) {
 				characterFile.position[1] -= shiftMult;
 				updateOffset();
 			}
 
-			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonB.pressed #end && curTypeSelected == 1) {
+			if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonB.pressed #end && curTypeSelected == 1) {
 				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
 			}
 		}

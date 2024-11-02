@@ -288,7 +288,7 @@ class MainMenuStateOld extends MusicBeatState
 				}
 			}
 			#if (desktop || android)
-			else if (FlxG.keys.anyJustPressed(debugKeys) || _virtualpad.buttonE.justPressed)
+			else if (FlxG.keys.anyJustPressed(debugKeys) || MusicBeatState._virtualpad.buttonE.justPressed)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());

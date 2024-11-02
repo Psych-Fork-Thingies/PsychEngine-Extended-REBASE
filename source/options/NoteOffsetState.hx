@@ -300,7 +300,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
-			if(controls.RESET || _virtualpad.buttonC.justPressed)
+			if(controls.RESET || MusicBeatState._virtualpad.buttonC.justPressed)
 			{
 				for (i in 0...ClientPrefs.data.comboOffset.length)
 				{
@@ -338,7 +338,7 @@ class NoteOffsetState extends MusicBeatState
 				updateNoteDelay();
 			}
 
-			if(controls.RESET || _virtualpad.buttonC.justPressed)
+			if(controls.RESET || MusicBeatState._virtualpad.buttonC.justPressed)
 			{
 				holdTime = 0;
 				barPercent = 0;

@@ -358,7 +358,7 @@ class MainMenuStateNOVA extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}		
 				
-			else if (FlxG.keys.anyJustPressed(debugKeys) || _virtualpad.buttonE.justPressed)
+			else if (FlxG.keys.anyJustPressed(debugKeys) || MusicBeatState._virtualpad.buttonE.justPressed)
 			{
 				endCheck = true;
 				MusicBeatState.switchState(new MasterEditorMenu());

@@ -3192,7 +3192,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end #if ios || _virtualpad.buttonB.pressed #end && startedCountdown && canPause)
+		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end #if ios || MusicBeatState._virtualpad.buttonB.pressed #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', [], false);
 			if(ret != FunkinLua.Function_Stop) {
