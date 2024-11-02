@@ -250,7 +250,14 @@ class ModsMenuState extends MusicBeatState
 				button.enabled = false;
 		}
 
-		settingsButton = new MenuButton(buttonsX + 300, buttonsY, 80, 80, Paths.image('modsMenuButtons'), function() {}, 54, 54);
+		settingsButton = new MenuButton(buttonsX + 300, buttonsY, 80, 80, Paths.image('modsMenuButtons'), function() //Settings
+		{
+			var curMod:ModItem = modsGroup.members[curSelectedMod];
+			if(curMod != null && curMod.settings != null && curMod.settings.length > 0)
+			{
+				openSubState(new ModSettingsSubState(curMod.settings, curMod.folder, curMod.name));
+			}
+		}, 54, 54);
 
 		settingsButton.icon.animation.add('icon', [3]);
 		settingsButton.icon.animation.play('icon', true);
@@ -359,17 +366,8 @@ class ModsMenuState extends MusicBeatState
         			CustomSwitchState.switchMenus('MainMenu');
         		isFreePlay = false;
 			}
-			
-			if (FlxG.mouse.overlaps(settingsButton) && FlxG.mouse.justPressed)
-			{
-    			var curMod:ModItem = modsGroup.members[curSelectedMod];
-    			if(curMod != null && curMod.settings != null && curMod.settings.length > 0)
-    			{
-    				openSubState(new ModSettingsSubState(curMod.settings, curMod.folder, curMod.name));
-    				persistentUpdate = true;
-    			}
-    		}
 
+			persistentUpdate = false;
 			FlxG.autoPause = true;
 			#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 			return;
@@ -610,7 +608,6 @@ class ModsMenuState extends MusicBeatState
     	addVirtualPad(UP_DOWN, B);
     	_virtualpad.y -= 215; // so that you can press the buttons.
     	_virtualpad.alpha = 0.3;
-    	persistentUpdate = false;
 		#end
 	}
 
