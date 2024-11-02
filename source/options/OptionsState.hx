@@ -44,12 +44,10 @@ class OptionsState extends MusicBeatState
 		switch(label) {
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
-			case 'Mobile Controls':
-    			FlxTransitionableState.skipNextTransIn = true;
-    			FlxTransitionableState.skipNextTransOut = true;
-    			openSubState(new MobileControlSelectSubState());
 			case 'Controls':
 				openSubState(new options.ControlsSubState());
+			case 'Mobile Controls':
+    			openSubState(new MobileControlSelectSubState());
 			case 'Graphics':
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
