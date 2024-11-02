@@ -49,7 +49,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Main Menu Style:',
 			"Choose your Main Menu Style",
 			'MainMenuStyle',
-			'string'
+			'string',
 			['1.0', 'NovaFlare', '0.6.3', 'Extended']);
 		addOption(option);
 		

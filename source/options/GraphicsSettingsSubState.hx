@@ -47,9 +47,9 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
 			'antialiasing',
 			'bool');
-		option.showBoyfriend = true;
 		option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
 		addOption(option);
+		antialiasingOption = optionsArray.length-1;
 
 		var option:Option = new Option('Shaders', //Name
 			'If unchecked, disables shaders.\nIt\'s used for some visual effects, and also CPU intensive for weaker PCs.', //Description
@@ -77,8 +77,7 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 	{
 		for (sprite in members)
 		{
-			var sprite:Dynamic = sprite; //Make it check for FlxSprite instead of FlxBasic
-			var sprite:FlxSprite = sprite; //Don't judge me ok
+			var sprite:FlxSprite = cast sprite;
 			if(sprite != null && (sprite is FlxSprite) && !(sprite is FlxText)) {
 				sprite.antialiasing = ClientPrefs.data.antialiasing;
 			}
@@ -97,5 +96,11 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			FlxG.drawFramerate = ClientPrefs.data.framerate;
 			FlxG.updateFramerate = ClientPrefs.data.framerate;
 		}
+	}
+	
+	override function changeSelection(change:Int = 0)
+	{
+		super.changeSelection(change);
+		boyfriend.visible = (antialiasingOption == curSelected);
 	}
 }

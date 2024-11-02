@@ -78,7 +78,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
 			'Changes VirtualPad Alpha -cool feature',
 			'VirtualPadAlpha',
-			'percent');
+			'float');
 		option.scrollSpeed = 1.6;
 		option.minValue = 0;
 		option.maxValue = 1;
@@ -106,7 +106,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		var option:Option = new Option('Extra Controls',
 			"Allow Extra Controls",
 			'extraKeys',
-			'percent');
+			'float');
 		option.scrollSpeed = 1.6;
 		option.minValue = 0;
 		option.maxValue = 4;
@@ -145,7 +145,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
 		'Changes hitbox opacity -omg',
 		'hitboxalpha',
-		'percent');
+		'float');
 	option.scrollSpeed = 1.6;
 	option.minValue = 0.0;
 	option.maxValue = 1;
@@ -166,7 +166,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	var option:Option = new Option('Storage Type',
 		'Which folder Psych Engine should use?',
 		'storageType',
-		'string',
+		'string'
 		storageTypes);
 		addOption(option);
 	#end
