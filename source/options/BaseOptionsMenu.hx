@@ -275,7 +275,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 				else
 				{
-					leOption.setValue(!Controls.instance.controllerMode ? leOption.defaultKeys.keyboard : leOption.defaultKeys.gamepad);
+					leOption.setValue(leOption.defaultKeys.keyboard);
 					updateBind(leOption);
 				}
 				leOption.change();

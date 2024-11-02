@@ -207,6 +207,20 @@ class ClientPrefs {
 		if(!customDefaultValue) defaultValue = defaultData.gameplaySettings.get(name);
 		return /*PlayState.isStoryMode ? defaultValue : */ (data.gameplaySettings.exists(name) ? data.gameplaySettings.get(name) : defaultValue);
 	}
+	
+	public static function reloadVolumeKeys()
+	{
+		TitleState.muteKeys = keyBinds.get('volume_mute').copy();
+		TitleState.volumeDownKeys = keyBinds.get('volume_down').copy();
+		TitleState.volumeUpKeys = keyBinds.get('volume_up').copy();
+		toggleVolumeKeys(true);
+	}
+	public static function toggleVolumeKeys(?turnOn:Bool = true)
+	{
+		FlxG.sound.muteKeys = turnOn ? TitleState.muteKeys : [];
+		FlxG.sound.volumeDownKeys = turnOn ? TitleState.volumeDownKeys : [];
+		FlxG.sound.volumeUpKeys = turnOn ? TitleState.volumeUpKeys : [];
+	}
 
 	public static function reloadControls() {
 		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
