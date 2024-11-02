@@ -4220,8 +4220,6 @@ class PlayState extends MusicBeatState
 						CustomFadeTransitionNOVA.nextCamera = null;
 					}
 					CustomSwitchState.switchMenus('StoryMenu');
-					Paths.clearStoredMemory();
-		            Paths.clearUnusedMemory();
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
@@ -4284,8 +4282,6 @@ class PlayState extends MusicBeatState
 				if(FlxTransitionableState.skipNextTransIn && ClientPrefs.data.TransitionStyle == 'NovaFlare')
 					CustomFadeTransitionNOVA.nextCamera = null;
 				CustomSwitchState.switchMenus('Freeplay');
-				Paths.clearStoredMemory();
-		        Paths.clearUnusedMemory();
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}

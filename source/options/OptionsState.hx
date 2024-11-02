@@ -35,19 +35,17 @@ class OptionsState extends MusicBeatState
 	public static var stateType:Int = 0;
 	public static var menuBG:FlxSprite;
 	public static var onPlayState:Bool;
+	public static var isNotInSubstate:Bool = false;
 
 	function openSelectedSubstate(label:String) {
 	    if (label != "Adjust Delay and Combo"){
 			removeVirtualPad();
 			persistentUpdate = false;
+			isNotInSubstate = persistentUpdate;
 		}
 		switch(label) {
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
-			case 'Mobile Controls':
-    			FlxTransitionableState.skipNextTransIn = true;
-    			FlxTransitionableState.skipNextTransOut = true;
-    			openSubState(new MobileControlSelectSubState());
 			case 'Controls':
 				openSubState(new options.ControlsSubState());
 			case 'Mobile Controls':
@@ -58,6 +56,8 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
+			case 'Mobile Options':
+			    openSubState(new MobileOptionsSubState());
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
@@ -121,9 +121,10 @@ class OptionsState extends MusicBeatState
 	override function closeSubState() {
 		super.closeSubState();
 		removeVirtualPad();
-		persistentUpdate = true;
-		ClientPrefs.saveSettings();
 		addVirtualPad(UP_DOWN, A_B_E);
+		persistentUpdate = true;
+		isNotInSubstate = persistentUpdate;
+		ClientPrefs.saveSettings();
 	}
 
 	override function update(elapsed:Float) {
@@ -136,7 +137,7 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 		
-		if (controls.BACK) {
+		if (controls.BACK #if mobile && isNotInSubstate #end) {
 	     	if (OptionsState.onPlayState) {
 	     	    if (TitleState.IndieCrossEnabled) {
     	     	    StageData.loadDirectory(PlayState.SONG);
