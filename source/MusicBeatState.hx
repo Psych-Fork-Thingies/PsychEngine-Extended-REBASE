@@ -36,18 +36,19 @@ class MusicBeatState extends FlxUIState
 
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
-	public var controls(get, never):Controls;
-	private function get_controls()
-	{
-		return Controls.instance;
-	}
+	private var controls(get, never):Controls;
 	public static var checkHitbox:Bool = false;
-	public static var checkDUO:Bool = false;
 
 	public static var camBeat:FlxCamera;
 
-	public static var _virtualpad:FlxVirtualPad;
+	inline function get_controls():Controls
+		return PlayerSettings.player1.controls;
+
+	var _virtualpad:FlxVirtualPad;
 	public static var mobilec:MobileControls;
+	
+	var trackedinputsUI:Array<FlxActionInput> = [];
+	var trackedinputsNOTES:Array<FlxActionInput> = [];
 
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {		
 		if (_virtualpad != null)
@@ -55,14 +56,24 @@ class MusicBeatState extends FlxUIState
 
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
+
+		controls.setVirtualPadUI(_virtualpad, DPad, Action);
+		trackedinputsUI = controls.trackedInputsUI;
+		controls.trackedInputsUI = [];
 	}
 	
 	public function removeVirtualPad() {
+		if (trackedinputsUI.length > 0)
+			controls.removeVirtualControlsInput(trackedinputsUI);
+
 		if (_virtualpad != null)
 			remove(_virtualpad);
 	}
 	
 	public function removeMobileControls() {
+		if (trackedinputsNOTES.length > 0)
+			controls.removeVirtualControlsInput(trackedinputsNOTES);
+			
 		if (mobilec != null)
 			remove(mobilec);
 	}
@@ -92,22 +103,23 @@ class MusicBeatState extends FlxUIState
 		switch (mobilec.mode)
 		{
 			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+				controls.setVirtualPadNOTES(mobilec.vpad, FULL, NONE);
 				MusicBeatState.checkHitbox = false;
-				checkDUO = false;
-				Controls.CheckKeyboard = false;
 			case DUO:
+				controls.setVirtualPadNOTES(mobilec.vpad, DUO, NONE);
 				MusicBeatState.checkHitbox = false;
-				checkDUO = true;
-				Controls.CheckKeyboard = false;
 			case HITBOX:
+			   if(ClientPrefs.data.hitboxmode != 'New'){
+				controls.setHitBox(mobilec.hbox);
+				}else{
+				controls.setNewHitBox(mobilec.newhbox);
+				}
 				MusicBeatState.checkHitbox = true;
-				checkDUO = false;
-				Controls.CheckKeyboard = false;
 			default:
-			    checkHitbox = false;
-				checkDUO = false;
-			    Controls.CheckKeyboard = true;
 		}
+
+		trackedinputsNOTES = controls.trackedInputsNOTES;
+		controls.trackedInputsNOTES = [];
 
 		var camcontrol = new flixel.FlxCamera();
 		FlxG.cameras.add(camcontrol, false);
@@ -121,10 +133,16 @@ class MusicBeatState extends FlxUIState
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
-		MusicBeatState._virtualpad.cameras = [camcontrol];
+		_virtualpad.cameras = [camcontrol];
 	}
 	
 	override function destroy() {
+		if (trackedinputsNOTES.length > 0)
+			controls.removeVirtualControlsInput(trackedinputsNOTES);
+
+		if (trackedinputsUI.length > 0)
+			controls.removeVirtualControlsInput(trackedinputsUI);
+
 		super.destroy();
 
 		if (_virtualpad != null)

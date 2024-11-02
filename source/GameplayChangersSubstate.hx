@@ -317,7 +317,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET || MusicBeatState._virtualpad.buttonC.justPressed)
+			if(controls.RESET || _virtualpad.buttonC.justPressed)
 			{
 				for (i in 0...optionsArray.length)
 				{

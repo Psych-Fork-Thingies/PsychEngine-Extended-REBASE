@@ -30,16 +30,24 @@ class MusicBeatSubstate extends FlxSubState
 	private var controls(get, never):Controls;
 
 	inline function get_controls():Controls
-		return Controls.instance;
+		return PlayerSettings.player1.controls;
 
-	public static var _virtualpad:FlxVirtualPad;
+	var _virtualpad:FlxVirtualPad;
+	var trackedinputsUI:Array<FlxActionInput> = [];
+	var trackedinputsNOTES:Array<FlxActionInput> = [];
 	
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
+		controls.setVirtualPadUI(_virtualpad, DPad, Action);
+		trackedinputsUI = controls.trackedInputsUI;
+		controls.trackedInputsUI = [];
 	}
 
 	public function removeVirtualPad() {
+		if (trackedinputsUI.length > 0)
+			controls.removeVirtualControlsInput(trackedinputsUI);
+
 		if (_virtualpad != null)
 			remove(_virtualpad);
 	}
@@ -48,7 +56,7 @@ class MusicBeatSubstate extends FlxSubState
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
-		MusicBeatState._virtualpad.cameras = [camcontrol];
+		_virtualpad.cameras = [camcontrol];
 	}
 	
 	public function initPsychCamera():PsychCamera
@@ -60,6 +68,9 @@ class MusicBeatSubstate extends FlxSubState
 	}
 	
 	override function destroy() {
+		if (trackedinputsUI.length > 0)
+			controls.removeVirtualControlsInput(trackedinputsUI);
+
 		super.destroy();
 
 		if (_virtualpad != null)

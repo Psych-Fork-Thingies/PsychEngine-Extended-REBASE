@@ -47,6 +47,7 @@ class ModsMenuState extends MusicBeatState
 	var noModsSine:Float = 0;
 	var noModsTxt:FlxText;
 
+    final LastControllerMode:Bool = ClientPrefs.data.controllerMode; //Mobile Fix (0.6x)
 	var _lastControllerMode:Bool = false;
 	var startMod:String = null;
 	public function new(startMod:String = null)
@@ -305,7 +306,7 @@ class ModsMenuState extends MusicBeatState
 		
 		add(bgList);
 		add(modsGroup);
-		_lastControllerMode = controls.controllerMode;
+		_lastControllerMode = ClientPrefs.data.controllerMode;
 
 		changeSelectedMod();
 
@@ -319,9 +320,9 @@ class ModsMenuState extends MusicBeatState
 		add(bottomText);
 
 		addVirtualPad(UP_DOWN, B);
-		MusicBeatState._virtualpad.y -= 215; // so that you can press the buttons.
+		_virtualpad.y -= 215; // so that you can press the buttons.
 		#if mobile
-			MusicBeatState._virtualpad.alpha = 0.3;
+			_virtualpad.alpha = 0.3;
 		#end
 		super.create();
 	}
@@ -341,6 +342,7 @@ class ModsMenuState extends MusicBeatState
 			exiting = true;
 			saveTxt();
 
+            ClientPrefs.data.controllerMode = LastControllerMode;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if(waitingToRestart)
 			{
@@ -373,21 +375,21 @@ class ModsMenuState extends MusicBeatState
 
 		if(Math.abs(FlxG.mouse.deltaX) > 10 || Math.abs(FlxG.mouse.deltaY) > 10)
 		{
-			controls.controllerMode = false;
+			ClientPrefs.data.controllerMode = false;
 			if(!FlxG.mouse.visible) FlxG.mouse.visible = true;
 		}
 		
-		if(controls.controllerMode != _lastControllerMode)
+		if(ClientPrefs.data.controllerMode != _lastControllerMode)
 		{
-			#if HIDE_CURSOR if(controls.controllerMode) FlxG.mouse.visible = false; #end
-			_lastControllerMode = controls.controllerMode;
+			#if HIDE_CURSOR if(ClientPrefs.data.controllerMode) FlxG.mouse.visible = false; #end
+			_lastControllerMode = ClientPrefs.data.controllerMode;
 		}
 
 		if(controls.UI_DOWN_R || controls.UI_UP_R) holdTime = 0;
 
 		if(modsList.all.length > 0)
 		{
-			if(controls.controllerMode && holdingMod)
+			if(ClientPrefs.data.controllerMode && holdingMod)
 			{
 				holdingMod = false;
 				holdingElapsed = 0;
@@ -604,8 +606,8 @@ class ModsMenuState extends MusicBeatState
 		#if mobile
 		removeVirtualPad();
     	addVirtualPad(UP_DOWN, B);
-    	MusicBeatState._virtualpad.y -= 215; // so that you can press the buttons.
-    	MusicBeatState._virtualpad.alpha = 0.3;
+    	_virtualpad.y -= 215; // so that you can press the buttons.
+    	_virtualpad.alpha = 0.3;
 		#end
 	}
 
@@ -1024,7 +1026,7 @@ class MenuButton extends FlxSpriteGroup
 				setButtonVisibility(TouchFunctions.touchOverlapObject(this));
 			}
 		#else
-			if(!ignoreCheck && !controls.controllerMode && FlxG.mouse.justMoved && FlxG.mouse.visible)
+			if(!ignoreCheck && !ClientPrefs.data.controllerMode && FlxG.mouse.justMoved && FlxG.mouse.visible)
 				onFocus = FlxG.mouse.overlaps(this);
 
 			if(onFocus && onClick != null && FlxG.mouse.justPressed)
@@ -1032,7 +1034,7 @@ class MenuButton extends FlxSpriteGroup
 
 			if(_needACheck) {
 				_needACheck = false;
-				if(!controls.controllerMode)
+				if(!ClientPrefs.data.controllerMode)
 					setButtonVisibility(FlxG.mouse.overlaps(this));
 			}
 		#end

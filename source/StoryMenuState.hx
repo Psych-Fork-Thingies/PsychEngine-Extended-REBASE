@@ -249,13 +249,13 @@ class StoryMenuState extends MusicBeatState
 			else if (upP || downP || Swipe.Up || Swipe.Down)
 				changeDifficulty();
 
-    			if(FlxG.keys.justPressed.CONTROL || MusicBeatState._virtualpad.buttonX.justPressed)
+    			if(FlxG.keys.justPressed.CONTROL || _virtualpad.buttonX.justPressed)
     			{
     				removeVirtualPad();
     				persistentUpdate = false;
     				openSubState(new GameplayChangersSubstate());
     			}
-    			else if(controls.RESET || MusicBeatState._virtualpad.buttonY.justPressed)
+    			else if(controls.RESET || _virtualpad.buttonY.justPressed)
     			{
     				removeVirtualPad();
     				persistentUpdate = false;

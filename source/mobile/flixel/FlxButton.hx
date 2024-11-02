@@ -395,10 +395,15 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		    #if desktop
 			if (checkInput(FlxG.mouse, button, button.justPressedPosition, camera) && ClientPrefs.data.VirtualPadAlpha != 0)
 			#else
+			if (!Controls.isInSubstate)
+			{
 			for (touch in FlxG.touches.list)
 				if (checkInput(touch, touch, touch.justPressedPosition, camera))
 			#end
 					overlap = true;
+			#if mobile
+			}
+			#end
 
 		return overlap;
 	}

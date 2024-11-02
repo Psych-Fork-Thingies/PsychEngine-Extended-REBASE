@@ -212,7 +212,7 @@ class AchievementsMenuState extends MusicBeatState
 				}
 			}
 			
-			if(controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0) || MusicBeatState._virtualpad.buttonC.pressed && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
+			if(controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0) || _virtualpad.buttonC.pressed && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
 			{
 			    persistentUpdate = false;
 				openSubState(new ResetAchievementSubstate());

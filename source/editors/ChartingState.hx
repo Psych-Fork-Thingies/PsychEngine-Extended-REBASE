@@ -1683,7 +1683,7 @@ class ChartingState extends MusicBeatState
 			{
 				dummyArrow.visible = true;
 				dummyArrow.x = Math.floor(FlxG.mouse.x / GRID_SIZE) * GRID_SIZE;
-				if (MusicBeatState._virtualpad.buttonY.pressed)
+				if (_virtualpad.buttonY.pressed)
 					dummyArrow.y = touch.y;
 				else
 				{
@@ -1950,7 +1950,7 @@ class ChartingState extends MusicBeatState
 				var holdingShift:Float = 1;
 				if (FlxG.keys.pressed.CONTROL) holdingShift = 0.25;
 				else if (FlxG.keys.pressed.SHIFT || MusicBeatState._virtualpad.buttonC.pressed) holdingShift = 4;
-                else if (MusicBeatState._virtualpad.buttonX.pressed) holdingShift = 10;
+                else if (_virtualpad.buttonX.pressed) holdingShift = 10;
 				var daTime:Float = 700 * FlxG.elapsed * holdingShift;
 
 				if (FlxG.keys.pressed.W || MusicBeatState._virtualpad.buttonUp.pressed)
@@ -1994,7 +1994,7 @@ class ChartingState extends MusicBeatState
 			//AWW YOU MADE IT SEXY <3333 THX SHADMAR
 
 			if(!blockInput){
-				if(FlxG.keys.justPressed.RIGHT || (MusicBeatState._virtualpad.buttonRight.justPressed && !MusicBeatState._virtualpad.buttonC.pressed)){
+				if(FlxG.keys.justPressed.RIGHT || (_virtualpad.buttonRight.justPressed && !_virtualpad.buttonC.pressed)){
 					curQuant++;
 					if(curQuant>quantizations.length-1)
 						curQuant = 0;
@@ -2002,7 +2002,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT  || (MusicBeatState._virtualpad.buttonLeft.justPressed && !MusicBeatState._virtualpad.buttonC.pressed)){
+				if(FlxG.keys.justPressed.LEFT  || (_virtualpad.buttonLeft.justPressed && !_virtualpad.buttonC.pressed)){
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
@@ -2083,9 +2083,9 @@ class ChartingState extends MusicBeatState
 			if (FlxG.keys.pressed.SHIFT || MusicBeatState._virtualpad.buttonC.pressed)
 				shiftThing = 4;
 
-			if (FlxG.keys.justPressed.D || (MusicBeatState._virtualpad.buttonRight.justPressed && MusicBeatState._virtualpad.buttonC.pressed))
+			if (FlxG.keys.justPressed.D || (_virtualpad.buttonRight.justPressed && MusicBeatState._virtualpad.buttonC.pressed))
 				changeSection(curSec + shiftThing);
-			if (FlxG.keys.justPressed.A || (MusicBeatState._virtualpad.buttonLeft.justPressed && MusicBeatState._virtualpad.buttonC.pressed)) {
+			if (FlxG.keys.justPressed.A || (_virtualpad.buttonLeft.justPressed && MusicBeatState._virtualpad.buttonC.pressed)) {
 				if(curSec <= 0) {
 					changeSection(_song.notes.length-1);
 				} else {

@@ -352,8 +352,8 @@ class PlayState extends MusicBeatState
 		// for lua
 		instance = this;
 
-		debugKeysChart = ClientPrefs.keyBinds.get('debug_1').copy();
-		debugKeysCharacter = ClientPrefs.keyBinds.get('debug_2').copy();
+		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
+		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		if (ClientPrefs.data.PauseMenuStyle == 'NovaFlare')
 		    PauseSubStateNOVA.songName = null; //Reset to default
 		else
@@ -361,10 +361,10 @@ class PlayState extends MusicBeatState
 		playbackRate = ClientPrefs.getGameplaySetting('songspeed', 1);
 
 		keysArray = [
-			ClientPrefs.keyBinds.get('note_left').copy(),
-			ClientPrefs.keyBinds.get('note_down').copy(),
-			ClientPrefs.keyBinds.get('note_up').copy(),
-			ClientPrefs.keyBinds.get('note_right').copy()
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
 		];
 
 		controlArray = [
@@ -1402,7 +1402,7 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
-		if(!controls.controllerMode)
+		if(!ClientPrefs.data.controllerMode)
 		{
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
@@ -3192,7 +3192,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end #if ios || MusicBeatState._virtualpad.buttonB.pressed #end && startedCountdown && canPause)
+		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end #if ios || _virtualpad.buttonB.pressed #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', [], false);
 			if(ret != FunkinLua.Function_Stop) {
@@ -4536,7 +4536,7 @@ class PlayState extends MusicBeatState
 		var key:Int = getKeyFromEvent(eventKey);
 		//trace('Pressed: ' + eventKey);
 
-		if (!cpuControlled && startedCountdown && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || controls.controllerMode))
+		if (!cpuControlled && startedCountdown && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.data.controllerMode))
 		{
 			if(!boyfriend.stunned && generatedMusic && !endingSong)
 			{
@@ -4665,7 +4665,7 @@ class PlayState extends MusicBeatState
 		var parsedHoldArray:Array<Bool> = parseKeys();
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if(controls.controllerMode)
+		if(ClientPrefs.data.controllerMode)
 		{
 			var parsedArray:Array<Bool> = parseKeys('_P');
 			if(parsedArray.contains(true))
@@ -4702,7 +4702,7 @@ class PlayState extends MusicBeatState
 		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if(controls.controllerMode || strumsBlocked.contains(true))
+		if(ClientPrefs.data.controllerMode || strumsBlocked.contains(true))
 		{
 			var parsedArray:Array<Bool> = parseKeys('_R');
 			if(parsedArray.contains(true))
@@ -5130,7 +5130,7 @@ class PlayState extends MusicBeatState
 		if(FunkinLua.hscript != null) FunkinLua.hscript = null;
 		#end
 
-		if(!controls.controllerMode)
+		if(!ClientPrefs.data.controllerMode)
 		{
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);

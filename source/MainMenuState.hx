@@ -91,7 +91,7 @@ class MainMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-		debugKeys = ClientPrefs.keyBinds.get('debug_1').copy();
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
@@ -403,7 +403,7 @@ class MainMenuState extends MusicBeatState
 				}
 				else CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 			}
-			else if (FlxG.keys.anyJustPressed(debugKeys) || MusicBeatState._virtualpad.buttonE.justPressed)
+			else if (FlxG.keys.anyJustPressed(debugKeys) || _virtualpad.buttonE.justPressed)
 			{
 				selectedSomethin = true;
 				#if HIDE_CURSOR FlxG.mouse.visible = false; #end
