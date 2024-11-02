@@ -244,11 +244,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 						updateTextFrom(leOption);
 					}
 				}
-				else
-				{
-					leOption.setValue(leOption.defaultKeys.keyboard);
-					updateBind(leOption);
-				}
 				leOption.change();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				reloadCheckboxes();
