@@ -109,9 +109,6 @@ class MusicBeatState extends FlxUIState
 			    Controls.CheckKeyboard = true;
 		}
 
-		trackedinputsNOTES = controls.trackedInputsNOTES;
-		controls.trackedInputsNOTES = [];
-
 		var camcontrol = new flixel.FlxCamera();
 		FlxG.cameras.add(camcontrol, false);
 		camcontrol.bgColor.alpha = 0;
@@ -124,7 +121,7 @@ class MusicBeatState extends FlxUIState
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
-		_virtualpad.cameras = [camcontrol];
+		MusicBeatState._virtualpad.cameras = [camcontrol];
 	}
 	
 	override function destroy() {

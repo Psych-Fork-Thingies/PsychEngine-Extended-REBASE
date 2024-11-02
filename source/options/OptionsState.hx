@@ -163,7 +163,7 @@ class OptionsState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 		
-		if (MusicBeatState_virtualpad.buttonE.justPressed) {
+		if (MusicBeatState._virtualpad.buttonE.justPressed) {
 			removeVirtualPad();
 			persistentUpdate = false;
 			openSubState(new MobileExtraControl());

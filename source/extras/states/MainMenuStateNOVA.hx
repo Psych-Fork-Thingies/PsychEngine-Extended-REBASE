@@ -239,7 +239,7 @@ class MainMenuStateNOVA extends MusicBeatState
 	    #end
         
 		addVirtualPad(UP_DOWN, A_B_E);
-		_virtualpad.cameras = [camHUD];
+		MusicBeatState._virtualpad.cameras = [camHUD];
         
 		super.create();
 	}

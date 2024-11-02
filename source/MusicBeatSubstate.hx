@@ -32,12 +32,11 @@ class MusicBeatSubstate extends FlxSubState
 	inline function get_controls():Controls
 		return Controls.instance;
 
-	var _virtualpad:FlxVirtualPad;
+	public static var _virtualpad:FlxVirtualPad;
 	
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
-		controls.setVirtualPadUI(_virtualpad, DPad, Action);
 	}
 
 	public function removeVirtualPad() {
@@ -49,7 +48,7 @@ class MusicBeatSubstate extends FlxSubState
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
-		_virtualpad.cameras = [camcontrol];
+		MusicBeatState._virtualpad.cameras = [camcontrol];
 	}
 	
 	public function initPsychCamera():PsychCamera

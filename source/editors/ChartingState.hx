@@ -1994,7 +1994,7 @@ class ChartingState extends MusicBeatState
 			//AWW YOU MADE IT SEXY <3333 THX SHADMAR
 
 			if(!blockInput){
-				if(FlxG.keys.justPressed.RIGHT || (MusicBeatState._virtualpad.buttonRight.justPressed && !_virtualpad.buttonC.pressed)){
+				if(FlxG.keys.justPressed.RIGHT || (MusicBeatState._virtualpad.buttonRight.justPressed && !MusicBeatState.virtualpad.buttonC.pressed)){
 					curQuant++;
 					if(curQuant>quantizations.length-1)
 						curQuant = 0;
@@ -2002,7 +2002,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT  || (MusicBeatState._virtualpad.buttonLeft.justPressed && !_virtualpad.buttonC.pressed)){
+				if(FlxG.keys.justPressed.LEFT  || (MusicBeatState._virtualpad.buttonLeft.justPressed && !MusicBeatState.virtualpad.buttonC.pressed)){
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
