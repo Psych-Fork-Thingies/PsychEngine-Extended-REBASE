@@ -103,7 +103,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		reloadCheckboxes();
 		
 		addVirtualPad(FULL, A_B_C);
-		#if mobile Controls.isInSubstate = false; #end
         
         grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
@@ -118,22 +117,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var nextAccept:Int = 5;
 	var holdTime:Float = 0;
 	var holdValue:Float = 0;
-
-	var bindingKey:Bool = false;
-	var holdingEsc:Float = 0;
-	var bindingBlack:FlxSprite;
-	var bindingText:AlphabetNew;
-	var bindingText2:AlphabetNew;
 	override function update(elapsed:Float)
 	{
-		super.update(elapsed);
-
-		if(bindingKey)
-		{
-			bindingKeyUpdate(elapsed);
-			return;
-		}
-
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -144,7 +129,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-		    #if mobile Controls.isInSubstate = true; #end
 			if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
 		    {
         		ClientPrefs.data.VirtualPadSkin = 'original';
@@ -172,32 +156,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			}
 			else
 			{
-				if(curOption.type == 'keybind')
-				{
-					if(controls.ACCEPT)
-					{
-						bindingBlack = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
-						bindingBlack.scale.set(FlxG.width, FlxG.height);
-						bindingBlack.updateHitbox();
-						bindingBlack.alpha = 0;
-						FlxTween.tween(bindingBlack, {alpha: 0.6}, 0.35, {ease: FlxEase.linear});
-						add(bindingBlack);
-	
-						bindingText = new AlphabetNew(FlxG.width / 2, 160, "Rebinding " + curOption.name, false);
-						bindingText.alignment = CENTERED;
-						add(bindingText);
-						
-						bindingText2 = new AlphabetNew(FlxG.width / 2, 340, "Hold ESC to Cancel\nHold Backspace to Delete", true);
-						bindingText2.alignment = CENTERED;
-						add(bindingText2);
-	
-						bindingKey = true;
-						holdingEsc = 0;
-						ClientPrefs.toggleVolumeKeys(false);
-						FlxG.sound.play(Paths.sound('scrollMenu'));
-					}
-				}
-				else if(controls.UI_LEFT || controls.UI_RIGHT)
+				if(controls.UI_LEFT || controls.UI_RIGHT)
 				{
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
 					if(holdTime > 0.5 || pressed)
@@ -275,9 +234,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 			if(controls.RESET || _virtualpad.buttonC.justPressed)
 			{
-				var leOption:Option = optionsArray[curSelected];
-				if(leOption.type != 'keybind')
+				for (i in 0...optionsArray.length)
 				{
+				    var leOption:Option = optionsArray[i];
 					leOption.setValue(leOption.defaultValue);
 					if(leOption.type != 'bool')
 					{
@@ -301,110 +260,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 	}
 
-	function bindingKeyUpdate(elapsed:Float)
-	{
-		if(FlxG.keys.pressed.ESCAPE || FlxG.gamepads.anyPressed(B))
-		{
-			holdingEsc += elapsed;
-			if(holdingEsc > 0.5)
-			{
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				closeBinding();
-			}
-		}
-		else if (FlxG.keys.pressed.BACKSPACE || FlxG.gamepads.anyPressed(BACK))
-		{
-			holdingEsc += elapsed;
-			if(holdingEsc > 0.5)
-			{
-				curOption.keys.keyboard = NONE;
-				updateBind(InputFormatter.getKeyName(NONE));
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				closeBinding();
-			}
-		}
-		else
-		{
-			holdingEsc = 0;
-			var changed:Bool = false;
-			if(FlxG.keys.justPressed.ANY || FlxG.keys.justReleased.ANY)
-			{
-				var keyPressed:FlxKey = cast (FlxG.keys.firstJustPressed(), FlxKey);
-				var keyReleased:FlxKey = cast (FlxG.keys.firstJustReleased(), FlxKey);
-
-				if(keyPressed != NONE && keyPressed != ESCAPE && keyPressed != BACKSPACE)
-				{
-					changed = true;
-					curOption.keys.keyboard = keyPressed;
-				}
-				else if(keyReleased != NONE && (keyReleased == ESCAPE || keyReleased == BACKSPACE))
-				{
-					changed = true;
-					curOption.keys.keyboard = keyReleased;
-				}
-			}
-
-			if(changed)
-			{
-				var key:String = null;
-				if(curOption.keys.keyboard == null) curOption.keys.keyboard = 'NONE';
-				curOption.setValue(curOption.keys.keyboard);
-				key = InputFormatter.getKeyName(FlxKey.fromString(curOption.keys.keyboard));
-				updateBind(key);
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				closeBinding();
-			}
-		}
-	}
-
 	final MAX_KEYBIND_WIDTH = 320;
-	function updateBind(?text:String = null, ?option:Option = null)
-	{
-		if(option == null) option = curOption;
-		if(text == null)
-		{
-			text = option.getValue();
-			if(text == null) text = 'NONE';
-
-			text = InputFormatter.getKeyName(FlxKey.fromString(text));
-		}
-
-		var bind:AttachedText = cast option.child;
-		var attach:AttachedText = new AttachedText(text, bind.offsetX);
-		attach.sprTracker = bind.sprTracker;
-		attach.copyAlpha = true;
-		attach.ID = bind.ID;
-		attach.scaleX = Math.min(1, MAX_KEYBIND_WIDTH / attach.width);
-		attach.x = bind.x;
-		attach.y = bind.y;
-
-		option.child = attach;
-		grpTexts.insert(grpTexts.members.indexOf(bind), attach);
-		grpTexts.remove(bind);
-		bind.destroy();
-	}
-
-	function closeBinding()
-	{
-		bindingKey = false;
-		bindingBlack.destroy();
-		remove(bindingBlack);
-
-		bindingText.destroy();
-		remove(bindingText);
-
-		bindingText2.destroy();
-		remove(bindingText2);
-		ClientPrefs.toggleVolumeKeys(true);
-	}
-
 	function updateTextFrom(option:Option) {
-		if(option.type == 'keybind')
-		{
-			updateBind(option);
-			return;
-		}
-
 		var text:String = option.displayFormat;
 		var val:Dynamic = option.getValue();
 		if(option.type == 'percent') val *= 100;
@@ -417,7 +274,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		curSelected += change;
 		if (curSelected < 0)
 			curSelected = optionsArray.length - 1;
-		else if (curSelected >= optionsArray.length)
+		if (curSelected >= optionsArray.length)
 			curSelected = 0;
 
 		descText.text = optionsArray[curSelected].description;

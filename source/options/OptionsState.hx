@@ -38,7 +38,6 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String) {
 	    persistentUpdate = false;
-	    #if mobile Controls.isInSubstate = true; #end
 	    if (label != "Adjust Delay and Combo") removeVirtualPad();
 		switch(label) {
 			case 'Note Colors':
@@ -120,7 +119,6 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 		removeVirtualPad();
 		addVirtualPad(UP_DOWN, A_B_E);
-		#if mobile Controls.isInSubstate = false; #end
 		persistentUpdate = true;
 	}
 
@@ -134,7 +132,7 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 		
-		if (controls.BACK #if mobile && !Controls.isInSubstate #end) {
+		if (controls.BACK) {
 	     	if (OptionsState.onPlayState) {
 	     	    if (TitleState.IndieCrossEnabled) {
     	     	    StageData.loadDirectory(PlayState.SONG);
