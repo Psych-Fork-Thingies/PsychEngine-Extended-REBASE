@@ -114,6 +114,11 @@ class Option
 		}
 		return Reflect.setProperty(ClientPrefs.data, variable, value);
 	}
+	
+	public function setChild(child:Alphabet)
+	{
+		this.child = child;
+	}
 
 	private function get_text()
 	{
