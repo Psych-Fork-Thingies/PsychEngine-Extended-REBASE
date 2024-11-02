@@ -1,4 +1,4 @@
-package options;
+package extras.options;
 
 #if desktop
 import Discord.DiscordClient;
@@ -28,28 +28,26 @@ import Controls;
 
 using StringTools;
 
-class BaseOptionsMenu extends MusicBeatSubstate
+import CheckboxThingie;
+import AttachedText;
+
+class BaseSettingsMenu extends MusicBeatSubstate
 {
-	private var curOption:Option = null;
+	private var curOption:OptionNew = null;
 	private var curSelected:Int = 0;
-	private var optionsArray:Array<Option>;
+	private var optionsArray:Array<OptionNew>;
 
-    private var grpNote:FlxTypedGroup<FlxSprite>;
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grpOptions:FlxTypedGroup<AlphabetNew>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
-	private var grpTexts:FlxTypedGroup<AttachedText>;
-	public var showNotes:Bool = false;
+	private var grpTexts:FlxTypedGroup<AttachedTextNew>;
 
-	private var boyfriend:Character = null;
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
 	public var title:String;
 	public var rpcTitle:String;
-	
-	public var bg:FlxSprite;
-	final lastVirtualPadType:String = ClientPrefs.data.virtualpadType;
 
+	public var bg:FlxSprite;
 	public function new()
 	{
 		super();
@@ -68,10 +66,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		add(bg);
 
 		// avoids lagspikes while scrolling through menus!
-		grpOptions = new FlxTypedGroup<Alphabet>();
+		grpOptions = new FlxTypedGroup<AlphabetNew>();
 		add(grpOptions);
 
-		grpTexts = new FlxTypedGroup<AttachedText>();
+		grpTexts = new FlxTypedGroup<AttachedTextNew>();
 		add(grpTexts);
 
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
@@ -81,9 +79,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.alpha = 0.6;
 		add(descBox);
 
-		var titleText:Alphabet = new Alphabet(75, 40, title, true);
-		titleText.scaleX = 0.6;
-		titleText.scaleY = 0.6;
+		var titleText:AlphabetNew = new AlphabetNew(75, 45, title, true);
+		titleText.setScale(0.6);
 		titleText.alpha = 0.4;
 		add(titleText);
 
@@ -95,7 +92,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		for (i in 0...optionsArray.length)
 		{
-			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
+			var optionText:AlphabetNew = new AlphabetNew(290, 260, optionsArray[i].name, false);
 			optionText.isMenuItem = true;
 			/*optionText.forceX = 300;
 			optionText.yMult = 90;*/
@@ -111,32 +108,22 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				optionText.x -= 80;
 				optionText.startPosition.x -= 80;
 				//optionText.xAdd -= 80;
-				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 80);
+				var valueText:AttachedTextNew = new AttachedTextNew('' + optionsArray[i].getValue(), optionText.width + 60);
 				valueText.sprTracker = optionText;
 				valueText.copyAlpha = true;
 				valueText.ID = i;
 				grpTexts.add(valueText);
-				optionsArray[i].setChild(valueText);
+				optionsArray[i].child = valueText;
 			}
 			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
-
-			if(optionsArray[i].showBoyfriend && boyfriend == null)
-			{
-				reloadBoyfriend();
-			}
 			updateTextFrom(optionsArray[i]);
 		}
 
 		changeSelection();
 		reloadCheckboxes();
-
-        addVirtualPad(FULL, A_B_C);
-        
-        grpNote = new FlxTypedGroup<FlxSprite>();
-		add(grpNote);
 	}
 
-	public function addOption(option:Option) {
+	public function addOption(option:OptionNew) {
 		if(optionsArray == null || optionsArray.length < 1) optionsArray = [];
 		optionsArray.push(option);
 		return option;
@@ -157,25 +144,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-		    if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
-		    {
-        		ClientPrefs.data.VirtualPadSkin = 'original';
-        		ClientPrefs.saveSettings();
-        		ClientPrefs.data.VirtualPadSkin = 'original';
-        		CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
-        		lime.system.System.exit(0);
-        	}
-        	else
-			    close();
+			close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
 		if(nextAccept <= 0)
 		{
-			var usesCheckbox = true;
-			if(curOption.type != 'bool')
+			var usesCheckbox = false;
+			if(curOption.type == 'bool')
 			{
-				usesCheckbox = false;
+				usesCheckbox = true;
 			}
 
 			if(usesCheckbox)
@@ -259,29 +237,19 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET || _virtualpad.buttonC.justPressed)
+			if(controls.RESET)
 			{
-				for (i in 0...optionsArray.length)
+				var leOption:OptionNew = optionsArray[curSelected];
+				leOption.setValue(leOption.defaultValue);
+				if(leOption.type != 'bool')
 				{
-					var leOption:Option = optionsArray[i];
-					leOption.setValue(leOption.defaultValue);
-					if(leOption.type != 'bool')
-					{
-						if(leOption.type == 'string')
-						{
-							leOption.curOption = leOption.options.indexOf(leOption.getValue());
-						}
-						updateTextFrom(leOption);
-					}
-					leOption.change();
+					if(leOption.type == 'string') leOption.curOption = leOption.options.indexOf(leOption.getValue());
+					updateTextFrom(leOption);
 				}
+				leOption.change();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				reloadCheckboxes();
 			}
-		}
-
-		if(boyfriend != null && boyfriend.animation.curAnim.finished) {
-			boyfriend.dance();
 		}
 
 		if(nextAccept > 0) {
@@ -290,7 +258,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		super.update(elapsed);
 	}
 
-	function updateTextFrom(option:Option) {
+	function updateTextFrom(option:OptionNew) {
 		var text:String = option.displayFormat;
 		var val:Dynamic = option.getValue();
 		if(option.type == 'percent') val *= 100;
@@ -340,69 +308,13 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 
-		if(boyfriend != null)
-		{
-			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
-		}
-		if (optionsArray[curSelected].showNote == false){
-		 remove(grpNote);
-		}
-		else{
-		remove(grpNote);		
-		grpNote = new FlxTypedGroup<FlxSprite>();
-		add(grpNote);
-		reloadNotes();
-		}
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 
-	public function reloadBoyfriend()
-	{
-		var wasVisible:Bool = false;
-		if(boyfriend != null) {
-			wasVisible = boyfriend.visible;
-			boyfriend.kill();
-			remove(boyfriend);
-			boyfriend.destroy();
-		}
-
-		boyfriend = new Character(840, 170, 'bf', true);
-		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
-		boyfriend.updateHitbox();
-		boyfriend.dance();
-		insert(1, boyfriend);
-		boyfriend.visible = wasVisible;
-	}
-	
-	public function reloadNotes()
-		{
-			for (i in 0...ClientPrefs.data.arrowHSV.length) {
-				var notes:FlxSprite = new FlxSprite((i * 125), 100);
-				if (ClientPrefs.data.NoteSkin == 'original')
-    			    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
-    			else
-    			    notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.data.NoteSkin);
-				var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
-				notes.animation.addByPrefix('idle', animations[i]);
-				notes.animation.play('idle');
-				//notes.visible = true;
-				notes.scale.set(0.8, 0.8);
-				notes.x += 700;
-				notes.antialiasing = ClientPrefs.data.antialiasing;
-				grpNote.add(notes);
-				
-				var newShader:ColorSwap = new ColorSwap();
-			    notes.shader = newShader.shader;
-			    newShader.hue = ClientPrefs.data.arrowHSV[i][0] / 360;
-			    newShader.saturation = ClientPrefs.data.arrowHSV[i][1] / 100;
-			    newShader.brightness = ClientPrefs.data.arrowHSV[i][2] / 100;
-		}
-	}
-
 	function reloadCheckboxes() {
 		for (checkbox in checkboxGroup) {
-			checkbox.daValue = Std.string(optionsArray[checkbox.ID].getValue()) == 'true';
+			checkbox.daValue = Std.string(optionsArray[checkbox.ID].getValue()) == 'true'; //Do not take off the Std.string() from this, it will break a thing in Mod Settings Menu
 		}
 	}
 }
