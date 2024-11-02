@@ -234,15 +234,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 			if(controls.RESET || _virtualpad.buttonC.justPressed)
 			{
-				for (i in 0...optionsArray.length)
+				var leOption:Option = optionsArray[curSelected];
+				leOption.setValue(leOption.defaultValue);
+				if(leOption.type != 'bool')
 				{
-				    var leOption:Option = optionsArray[i];
-					leOption.setValue(leOption.defaultValue);
-					if(leOption.type != 'bool')
-					{
-						if(leOption.type == 'string') leOption.curOption = leOption.options.indexOf(leOption.getValue());
-						updateTextFrom(leOption);
-					}
+					if(leOption.type == 'string') leOption.curOption = leOption.options.indexOf(leOption.getValue());
+					updateTextFrom(leOption);
 				}
 				leOption.change();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
