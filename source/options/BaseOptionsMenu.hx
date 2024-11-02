@@ -24,6 +24,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	public var rpcTitle:String;
 
 	public var bg:FlxSprite;
+	final lastVirtualPadType:String = ClientPrefs.data.virtualpadType;
 	public function new()
 	{
 		super();
@@ -142,7 +143,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-			close();
+			if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
+		    {
+        		ClientPrefs.data.VirtualPadSkin = 'original';
+        		ClientPrefs.saveSettings();
+        		ClientPrefs.data.VirtualPadSkin = 'original';
+        		CoolUtil.showPopUp('VirtualPad Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
+        		lime.system.System.exit(0);
+        	}
+        	else
+			    close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
@@ -261,7 +271,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET)
+			if(controls.RESET || _virtualpad.buttonC.justPressed)
 			{
 				var leOption:Option = optionsArray[curSelected];
 				if(leOption.type != 'keybind')

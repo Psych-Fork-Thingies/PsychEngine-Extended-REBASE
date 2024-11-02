@@ -136,7 +136,6 @@ class ModSettingsSubState extends BaseOptionsMenu
 		reloadCheckboxes();
 		
 		addVirtualPad(FULL, A_B);
-		addVirtualPadCamera();
 	}
 
 	override public function update(elapsed:Float)

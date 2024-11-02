@@ -44,6 +44,10 @@ class OptionsState extends MusicBeatState
 		switch(label) {
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
+			case 'Mobile Controls':
+    			FlxTransitionableState.skipNextTransIn = true;
+    			FlxTransitionableState.skipNextTransOut = true;
+    			openSubState(new MobileControlSelectSubState());
 			case 'Controls':
 				openSubState(new options.ControlsSubState());
 			case 'Mobile Controls':
@@ -54,8 +58,6 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
-			case 'Mobile Options':
-			    openSubState(new MobileOptionsSubState());
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
@@ -119,9 +121,9 @@ class OptionsState extends MusicBeatState
 	override function closeSubState() {
 		super.closeSubState();
 		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B_E);
 		persistentUpdate = true;
 		ClientPrefs.saveSettings();
+		addVirtualPad(UP_DOWN, A_B_E);
 	}
 
 	override function update(elapsed:Float) {
