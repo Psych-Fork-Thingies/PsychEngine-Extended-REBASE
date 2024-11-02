@@ -47,7 +47,6 @@ class ModsMenuState extends MusicBeatState
 	var noModsSine:Float = 0;
 	var noModsTxt:FlxText;
 
-    final LastControllerMode:Bool = controls.controllerMode; //Mobile Fix (0.6x)
 	var _lastControllerMode:Bool = false;
 	var startMod:String = null;
 	public function new(startMod:String = null)
@@ -342,7 +341,6 @@ class ModsMenuState extends MusicBeatState
 			exiting = true;
 			saveTxt();
 
-            controls.controllerMode = LastControllerMode;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if(waitingToRestart)
 			{
