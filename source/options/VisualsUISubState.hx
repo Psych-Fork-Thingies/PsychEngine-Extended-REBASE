@@ -56,21 +56,21 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Pause Menu Style:',
 			"Choose your Pause Menu Style",
 			'PauseMenuStyle',
-			'string'
+			'string',
 			['Psych', 'NovaFlare']);
 		addOption(option);
 		
 		var option:Option = new Option('Transition Style:',
 			"Choose your Transition Style",
 			'TransitionStyle',
-			'string'
+			'string',
 			['Psych', 'NovaFlare', 'Extended']);
 		addOption(option);
 		
 		var option:Option = new Option('Note Skin:',
 			"Choose Note Skin",
 			'NoteSkin',
-			'string'
+			'string',
 			noteSkinList);	
 		option.showNote = true;
 		addOption(option);

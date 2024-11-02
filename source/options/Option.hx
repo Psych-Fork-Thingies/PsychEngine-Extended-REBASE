@@ -66,8 +66,8 @@ class Option
 
 				case 'keybind':
 					defaultValue = '';
-					defaultKeys = {gamepad: 'NONE', keyboard: 'NONE'};
-					keys = {gamepad: 'NONE', keyboard: 'NONE'};
+					defaultKeys = {keyboard: 'NONE'};
+					keys = {keyboard: 'NONE'};
 			}
 		}
 
@@ -99,7 +99,7 @@ class Option
 	dynamic public function getValue():Dynamic
 	{
 		var value = Reflect.getProperty(ClientPrefs.data, variable);
-		if(type == 'keybind') return !Controls.instance.controllerMode ? value.keyboard : value.gamepad;
+		if(type == 'keybind') return value.keyboard;
 		return value;
 	}
 
@@ -108,8 +108,7 @@ class Option
 		if(type == 'keybind')
 		{
 			var keys = Reflect.getProperty(ClientPrefs.data, variable);
-			if(!Controls.instance.controllerMode) keys.keyboard = value;
-			else keys.gamepad = value;
+			keys.keyboard = value;
 			return value;
 		}
 		return Reflect.setProperty(ClientPrefs.data, variable, value);
