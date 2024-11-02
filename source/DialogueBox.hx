@@ -177,7 +177,7 @@ class DialogueBox extends FlxSpriteGroup
 		}
 		#end
 
-		if(PlayerSettings.player1.controls.ACCEPT #if mobile || justTouched #end)
+		if(Controls.instance.ACCEPT #if mobile || justTouched #end)
 		{
 			if (dialogueEnded)
 			{
