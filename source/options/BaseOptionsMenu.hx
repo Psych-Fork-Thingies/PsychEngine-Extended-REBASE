@@ -1,10 +1,37 @@
 package options;
 
+#if desktop
+import Discord.DiscordClient;
+#end
+import openfl.text.TextField;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import lime.utils.Assets;
+import flixel.FlxSubState;
+import openfl.text.TextField;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.util.FlxSave;
+import haxe.Json;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
+import flixel.input.keyboard.FlxKey;
+import flixel.graphics.FlxGraphic;
+import Controls;
+
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.FlxGamepadManager;
-import options.Option;
+
+using StringTools;
 
 class BaseOptionsMenu extends MusicBeatSubstate
 {
@@ -13,18 +40,21 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var optionsArray:Array<Option>;
 
     private var grpNote:FlxTypedGroup<FlxSprite>;
-	private var grpOptions:FlxTypedGroup<AlphabetNew>;
+	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
+	public var showNotes:Bool = false;
 
+	private var boyfriend:Character = null;
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
 	public var title:String;
 	public var rpcTitle:String;
-
+	
 	public var bg:FlxSprite;
 	final lastVirtualPadType:String = ClientPrefs.data.virtualpadType;
+
 	public function new()
 	{
 		super();
@@ -43,7 +73,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		add(bg);
 
 		// avoids lagspikes while scrolling through menus!
-		grpOptions = new FlxTypedGroup<AlphabetNew>();
+		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
 		grpTexts = new FlxTypedGroup<AttachedText>();
@@ -56,8 +86,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.alpha = 0.6;
 		add(descBox);
 
-		var titleText:AlphabetNew = new AlphabetNew(75, 45, title, true);
-		titleText.setScale(0.6);
+		var titleText:Alphabet = new Alphabet(75, 40, title, true);
+		titleText.scaleX = 0.6;
+		titleText.scaleY = 0.6;
 		titleText.alpha = 0.4;
 		add(titleText);
 
@@ -69,7 +100,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		for (i in 0...optionsArray.length)
 		{
-			var optionText:AlphabetNew = new AlphabetNew(290, 260, optionsArray[i].name, false);
+			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
 			optionText.isMenuItem = true;
 			/*optionText.forceX = 300;
 			optionText.yMult = 90;*/
@@ -88,21 +119,26 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				optionText.x -= 80;
 				optionText.startPosition.x -= 80;
 				//optionText.xAdd -= 80;
-				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 60);
+				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 80);
 				valueText.sprTracker = optionText;
 				valueText.copyAlpha = true;
 				valueText.ID = i;
 				grpTexts.add(valueText);
-				optionsArray[i].child = valueText;
+				optionsArray[i].setChild(valueText);
 			}
 			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
+
+			if(optionsArray[i].showBoyfriend && boyfriend == null)
+			{
+				reloadBoyfriend();
+			}
 			updateTextFrom(optionsArray[i]);
 		}
 
 		changeSelection();
 		reloadCheckboxes();
-		
-		addVirtualPad(FULL, A_B_C);
+
+        addVirtualPad(FULL, A_B_C);
         
         grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
@@ -129,7 +165,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
-			if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
+		    if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
 		    {
         		ClientPrefs.data.VirtualPadSkin = 'original';
         		ClientPrefs.saveSettings();
@@ -153,11 +189,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					curOption.change();
 					reloadCheckboxes();
 				}
-			}
-			else
-			{
-				if(controls.UI_LEFT || controls.UI_RIGHT)
-				{
+			} else {
+				if(controls.UI_LEFT || controls.UI_RIGHT) {
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
 					if(holdTime > 0.5 || pressed)
 					{
@@ -247,18 +280,30 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			}
 		}
 
+		if(boyfriend != null && boyfriend.animation.curAnim.finished) {
+			boyfriend.dance();
+		}
+
 		if(nextAccept > 0) {
 			nextAccept -= 1;
 		}
+		super.update(elapsed);
 	}
 
-	final MAX_KEYBIND_WIDTH = 320;
 	function updateTextFrom(option:Option) {
 		var text:String = option.displayFormat;
 		var val:Dynamic = option.getValue();
 		if(option.type == 'percent') val *= 100;
 		var def:Dynamic = option.defaultValue;
 		option.text = text.replace('%v', val).replace('%d', def);
+	}
+
+	function clearHold()
+	{
+		if(holdTime > 0.5) {
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+		}
+		holdTime = 0;
 	}
 	
 	function changeSelection(change:Int = 0)
@@ -293,7 +338,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 
-        if (optionsArray[curSelected].showNote == false){
+		if(boyfriend != null)
+		{
+			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
+		}
+		if (optionsArray[curSelected].showNote == false){
 		 remove(grpNote);
 		}
 		else{
@@ -302,9 +351,26 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		add(grpNote);
 		reloadNotes();
 		}
-		
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
+	}
+
+	public function reloadBoyfriend()
+	{
+		var wasVisible:Bool = false;
+		if(boyfriend != null) {
+			wasVisible = boyfriend.visible;
+			boyfriend.kill();
+			remove(boyfriend);
+			boyfriend.destroy();
+		}
+
+		boyfriend = new Character(840, 170, 'bf', true);
+		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
+		boyfriend.updateHitbox();
+		boyfriend.dance();
+		insert(1, boyfriend);
+		boyfriend.visible = wasVisible;
 	}
 	
 	public function reloadNotes()
