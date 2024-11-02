@@ -116,11 +116,11 @@ class OptionsState extends MusicBeatState
 	}
 
 	override function closeSubState() {
-	    #if mobile Controls.isInSubstate = false; #end
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 		removeVirtualPad();
 		addVirtualPad(UP_DOWN, A_B_E);
+		#if mobile Controls.isInSubstate = false; #end
 		persistentUpdate = true;
 	}
 

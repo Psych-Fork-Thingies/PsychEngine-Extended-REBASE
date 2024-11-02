@@ -103,6 +103,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		reloadCheckboxes();
 		
 		addVirtualPad(FULL, A_B_C);
+		#if mobile Controls.isInSubstate = false; #end
         
         grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
@@ -143,6 +144,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
+		    #if mobile Controls.isInSubstate = true; #end
 			if (ClientPrefs.data.virtualpadType != lastVirtualPadType) //Null Object Fix
 		    {
         		ClientPrefs.data.VirtualPadSkin = 'original';
