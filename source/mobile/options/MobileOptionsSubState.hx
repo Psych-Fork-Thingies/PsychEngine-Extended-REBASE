@@ -198,7 +198,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	function onChangePadAlpha()
 	{
     	ClientPrefs.saveSettings();
-    	MusicBeatState._virtualpad.alpha = ClientPrefs.data.VirtualPadAlpha;
+    	_virtualpad.alpha = ClientPrefs.data.VirtualPadAlpha;
 	}
 	
 	function resetVirtualPad()

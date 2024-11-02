@@ -74,10 +74,10 @@ class EditorPlayState extends MusicBeatState
 		add(bg);
 
 		keysArray = [
-			ClientPrefs.keyBinds.get('note_left').copy(),
-			ClientPrefs.keyBinds.get('note_down').copy(),
-			ClientPrefs.keyBinds.get('note_up').copy(),
-			ClientPrefs.keyBinds.get('note_right').copy()
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
 		];
 		
 		strumLine = new FlxSprite(ClientPrefs.data.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
@@ -185,7 +185,7 @@ class EditorPlayState extends MusicBeatState
 		#if HIDE_CURSOR FlxG.mouse.visible = false; #end
 
 		//sayGo();
-		if(!controls.controllerMode)
+		if(!ClientPrefs.data.controllerMode)
 		{
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
@@ -359,7 +359,7 @@ class EditorPlayState extends MusicBeatState
 	public var noteKillOffset:Float = 350;
 	public var spawnTime:Float = 2000;
 	override function update(elapsed:Float) {
-		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end #if ios || MusicBeatState._virtualpad.buttonB.pressed #end)
+		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end #if ios || _virtualpad.buttonB.pressed #end)
 		{
 			FlxG.sound.music.pause();
 			vocals.pause();
@@ -601,7 +601,7 @@ class EditorPlayState extends MusicBeatState
 		var key:Int = getKeyFromEvent(eventKey);
 		//trace('Pressed: ' + eventKey);
 
-		if (key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || controls.controllerMode))
+		if (key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.data.controllerMode))
 		{
 			if(generatedMusic)
 			{
@@ -723,7 +723,7 @@ class EditorPlayState extends MusicBeatState
 		var controlHoldArray:Array<Bool> = [left, down, up, right];
 		
 		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if(controls.controllerMode)
+		if(ClientPrefs.data.controllerMode)
 		{
 			var controlArray:Array<Bool> = [controls.NOTE_LEFT_P, controls.NOTE_DOWN_P, controls.NOTE_UP_P, controls.NOTE_RIGHT_P];
 			if(controlArray.contains(true))
@@ -751,7 +751,7 @@ class EditorPlayState extends MusicBeatState
 		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if(controls.controllerMode)
+		if(ClientPrefs.data.controllerMode)
 		{
 			var controlArray:Array<Bool> = [controls.NOTE_LEFT_R, controls.NOTE_DOWN_R, controls.NOTE_UP_R, controls.NOTE_RIGHT_R];
 			if(controlArray.contains(true))
@@ -1094,7 +1094,7 @@ class EditorPlayState extends MusicBeatState
 		opponentVocals.stop();
 		opponentVocals.destroy();
 
-		if(!controls.controllerMode)
+		if(!ClientPrefs.data.controllerMode)
 		{
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);

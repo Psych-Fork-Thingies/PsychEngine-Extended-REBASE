@@ -93,7 +93,7 @@ class MainMenuStateNOVA extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end	
-		debugKeys = ClientPrefs.keyBinds.get('debug_1').copy();	
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));	
 
 		camGame = initPsychCamera();
 		camHUD = new FlxCamera();
@@ -239,7 +239,7 @@ class MainMenuStateNOVA extends MusicBeatState
 	    #end
         
 		addVirtualPad(UP_DOWN, A_B_E);
-		MusicBeatState._virtualpad.cameras = [camHUD];
+		_virtualpad.cameras = [camHUD];
         
 		super.create();
 	}
@@ -318,11 +318,11 @@ class MainMenuStateNOVA extends MusicBeatState
 			{
 				if (!FlxG.mouse.overlaps(spr)) {
 				    if (FlxG.mouse.pressed
-				    #if mobile && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
+				    #if mobile && !FlxG.mouse.overlaps(_virtualpad.buttonA) #end){
         			    spr.animation.play('idle');
     			    }
 				    if (FlxG.mouse.justReleased 
-				    #if mobile && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
+				    #if mobile && !FlxG.mouse.overlaps(_virtualpad.buttonA) #end){
 					    spr.animation.play('idle');			        			        
 			        } //work better for use virtual pad
 			    }
@@ -358,7 +358,7 @@ class MainMenuStateNOVA extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}		
 				
-			else if (FlxG.keys.anyJustPressed(debugKeys) || MusicBeatState._virtualpad.buttonE.justPressed)
+			else if (FlxG.keys.anyJustPressed(debugKeys) || _virtualpad.buttonE.justPressed)
 			{
 				endCheck = true;
 				MusicBeatState.switchState(new MasterEditorMenu());

@@ -330,7 +330,7 @@ class FreeplayNightmare extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		else if(FlxG.keys.justPressed.SPACE || MusicBeatState._virtualpad.buttonC.justPressed)
+		else if(FlxG.keys.justPressed.SPACE || _virtualpad.buttonC.justPressed)
 		{
 			#if PRELOAD_ALL
 			destroyFreeplayVocals();

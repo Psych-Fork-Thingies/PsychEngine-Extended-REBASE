@@ -75,7 +75,7 @@ class MainMenuStateOld extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-		debugKeys = ClientPrefs.keyBinds.get('debug_1').copy();
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
@@ -222,13 +222,13 @@ class MainMenuStateOld extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 			
-			if (MusicBeatState._virtualpad.buttonM.justPressed)
+			if (_virtualpad.buttonM.justPressed)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new ModsMenuState());
 			}
 			
-			if (MusicBeatState._virtualpad.buttonC.justPressed)
+			if (_virtualpad.buttonC.justPressed)
 			{
 				selectedSomethin = true;
 				CustomSwitchState.switchMenus('Credits');
@@ -288,7 +288,7 @@ class MainMenuStateOld extends MusicBeatState
 				}
 			}
 			#if (desktop || android)
-			else if (FlxG.keys.anyJustPressed(debugKeys) || MusicBeatState._virtualpad.buttonE.justPressed)
+			else if (FlxG.keys.anyJustPressed(debugKeys) || _virtualpad.buttonE.justPressed)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());

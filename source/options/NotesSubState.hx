@@ -105,7 +105,7 @@ class NotesSubState extends MusicBeatSubstate
 				} else if(controls.UI_RIGHT_P) {
 					updateValue(1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
-				} else if(controls.RESET || MusicBeatState._virtualpad.buttonC.justPressed) {
+				} else if(controls.RESET || _virtualpad.buttonC.justPressed) {
 					resetValue(curSelected, typeSelected);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
@@ -146,7 +146,7 @@ class NotesSubState extends MusicBeatSubstate
 				changeType(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if(controls.RESET || MusicBeatState._virtualpad.buttonC.justPressed) {
+			if(controls.RESET || _virtualpad.buttonC.justPressed) {
 				for (i in 0...3) {
 					resetValue(curSelected, i);
 				}

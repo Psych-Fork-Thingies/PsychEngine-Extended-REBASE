@@ -80,7 +80,7 @@ class ModsButtonRect extends FlxSpriteGroup //play/back button
     {
         super.update(elapsed);
 
-        if(!ignoreCheck && !controls.controllerMode)
+        if(!ignoreCheck && !ClientPrefs.data.controllerMode)
             onFocus = FlxG.mouse.overlaps(this);
 
         if(onFocus && onClick != null && FlxG.mouse.justReleased)
