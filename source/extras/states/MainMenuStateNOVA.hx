@@ -318,11 +318,11 @@ class MainMenuStateNOVA extends MusicBeatState
 			{
 				if (!FlxG.mouse.overlaps(spr)) {
 				    if (FlxG.mouse.pressed
-				    #if mobile && !FlxG.mouse.overlaps(_virtualpad.buttonA) #end){
+				    #if mobile && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
         			    spr.animation.play('idle');
     			    }
 				    if (FlxG.mouse.justReleased 
-				    #if mobile && !FlxG.mouse.overlaps(_virtualpad.buttonA) #end){
+				    #if mobile && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
 					    spr.animation.play('idle');			        			        
 			        } //work better for use virtual pad
 			    }

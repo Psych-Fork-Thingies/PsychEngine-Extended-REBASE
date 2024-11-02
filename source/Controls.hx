@@ -320,64 +320,6 @@ class Controls
     		    }//!MusicBeatState.checkDUO
     	    }//!MusicBeatState.checkHitbox
 	    }//CheckControl
-	    else{
-	    if (MusicBeatSubstate.checkHitbox){
-    		    if (key == 'note_up'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonUp.justPressed == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_down'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonDown.justPressed == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_left'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonLeft.justPressed == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_right'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonRight.justPressed == true);
-        		if(result) {controllerMode = true; return true;}
-    		    }
-    		}//MusicBeatSubstate.checkHitbox
-    		else{
-    		    if (MusicBeatSubstate.checkDUO){
-        		    if (key == 'note_up'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonUp.justPressed || MusicBeatSubstate.mobilec.vpad.buttonUp2.justPressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_down'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonDown.justPressed || MusicBeatSubstate.mobilec.vpad.buttonDown2.justPressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_left'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonLeft.justPressed || MusicBeatSubstate.mobilec.vpad.buttonLeft2.justPressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_right'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonRight.justPressed || MusicBeatSubstate.mobilec.vpad.buttonRight2.justPressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		    }		    
-        		    }//MusicBeatSubstate.checkDUO
-    		    else{
-            		if (key == 'note_up'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonUp.justPressed == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_down'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonDown.justPressed == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_left'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonLeft.justPressed == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_right'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonRight.justPressed == true);
-            		if(result) {controllerMode = true; return true;}
-        		    }
-    		    }//!MusicBeatSubstate.checkDUO
-    	    }//!MusicBeatSubstate.checkHitbox
-	    }//!CheckControl
 	    }//!CheckKeyboard
 	    return false;
     }
@@ -507,64 +449,6 @@ class Controls
     		    }//!MusicBeatState.checkDUO
     	    }//!MusicBeatState.checkHitbox
 	    }//CheckControl
-	    else{
-	    if (MusicBeatSubstate.checkHitbox){
-    		    if (key == 'note_up'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonUp.pressed == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_down'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonDown.pressed == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_left'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonLeft.pressed == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_right'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonRight.pressed == true);
-        		if(result) {controllerMode = true; return true;}
-    		    }
-    		}//MusicBeatSubstate.checkHitbox
-    		else{
-    		    if (MusicBeatSubstate.checkDUO){
-        		    if (key == 'note_up'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonUp.pressed || MusicBeatSubstate.mobilec.vpad.buttonUp2.pressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_down'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonDown.pressed || MusicBeatSubstate.mobilec.vpad.buttonDown2.pressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_left'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonLeft.pressed || MusicBeatSubstate.mobilec.vpad.buttonLeft2.pressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_right'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonRight.pressed || MusicBeatSubstate.mobilec.vpad.buttonRight2.pressed) == true);
-            		if(result) {controllerMode = true; return true;}
-            		    }		    
-        		    }//MusicBeatSubstate.checkDUO
-    		    else{
-            		if (key == 'note_up'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonUp.pressed == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_down'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonDown.pressed == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_left'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonLeft.pressed == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_right'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonRight.pressed == true);
-            		if(result) {controllerMode = true; return true;}
-        		    }
-    		    }//!MusicBeatSubstate.checkDUO
-    	    }//!MusicBeatSubstate.checkHitbox
-	    }//!CheckControl
 	    }//!CheckKeyboard
         return false;
 	   // if (result) return true;
@@ -694,64 +578,6 @@ class Controls
     		    }//!MusicBeatState.checkDUO
     	    }//!MusicBeatState.checkHitbox
 	    }//CheckControl
-	    else{
-	    if (MusicBeatSubstate.checkHitbox){
-    		    if (key == 'note_up'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonUp.justReleased == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_down'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonDown.justReleased == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_left'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonLeft.justReleased == true);
-        		if(result) {controllerMode = true; return true;}
-        		}
-        		if (key == 'note_right'){
-        		result = (MusicBeatSubstate.mobilec.newhbox.buttonRight.justReleased == true);
-        		if(result) {controllerMode = true; return true;}
-    		    }
-    		}//MusicBeatSubstate.checkHitbox
-    		else{
-    		    if (MusicBeatSubstate.checkDUO){
-        		    if (key == 'note_up'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonUp.justReleased || MusicBeatSubstate.mobilec.vpad.buttonUp2.justReleased) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_down'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonDown.justReleased || MusicBeatSubstate.mobilec.vpad.buttonDown2.justReleased) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_left'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonLeft.justReleased || MusicBeatSubstate.mobilec.vpad.buttonLeft2.justReleased) == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_right'){
-            		result = ((MusicBeatSubstate.mobilec.vpad.buttonRight.justReleased || MusicBeatSubstate.mobilec.vpad.buttonRight2.justReleased) == true);
-            		if(result) {controllerMode = true; return true;}
-            		    }		    
-        		    }//MusicBeatSubstate.checkDUO
-    		    else{
-            		if (key == 'note_up'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonUp.justReleased == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_down'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonDown.justReleased == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_left'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonLeft.justReleased == true);
-            		if(result) {controllerMode = true; return true;}
-            		}
-            		if (key == 'note_right'){
-            		result = (MusicBeatSubstate.mobilec.vpad.buttonRight.justReleased == true);
-            		if(result) {controllerMode = true; return true;}
-        		    }
-    		    }//!MusicBeatSubstate.checkDUO
-    	    }//!MusicBeatSubstate.checkHitbox
-	    }//!CheckControl
 	    }//!CheckKeyboard
 	    return false;
 	  //  if (result) return true;

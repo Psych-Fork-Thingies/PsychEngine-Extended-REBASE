@@ -320,9 +320,9 @@ class ModsMenuState extends MusicBeatState
 		add(bottomText);
 
 		addVirtualPad(UP_DOWN, B);
-		_virtualpad.y -= 215; // so that you can press the buttons.
+		MusicBeatState._virtualpad.y -= 215; // so that you can press the buttons.
 		#if mobile
-			_virtualpad.alpha = 0.3;
+			MusicBeatState._virtualpad.alpha = 0.3;
 		#end
 		super.create();
 	}
@@ -606,8 +606,8 @@ class ModsMenuState extends MusicBeatState
 		#if mobile
 		removeVirtualPad();
     	addVirtualPad(UP_DOWN, B);
-    	_virtualpad.y -= 215; // so that you can press the buttons.
-    	_virtualpad.alpha = 0.3;
+    	MusicBeatState._virtualpad.y -= 215; // so that you can press the buttons.
+    	MusicBeatState._virtualpad.alpha = 0.3;
 		#end
 	}
 
