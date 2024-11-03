@@ -357,7 +357,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function trackbutton(touch:flixel.input.mouse.FlxMouse)
+    function trackbutton(touch:FlxG.mouse)
     {
         daChoice = options[Math.floor(curSelected)];
 
@@ -431,7 +431,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function movebutton(touch:flixel.input.mouse.FlxMouse, button:UIButton)
+    function movebutton(touch:FlxG.mouse, button:UIButton)
     {
         button.x = touch.x - vpad.buttonUp.width / 2;
         button.y = touch.y - vpad.buttonUp.height / 2;
