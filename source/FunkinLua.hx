@@ -87,8 +87,6 @@ class FunkinLua {
 	public var extra3:String = ClientPrefs.data.extraKeyReturn3.toUpperCase();
 	public var extra4:String = ClientPrefs.data.extraKeyReturn4.toUpperCase();
 	public static var FPSCounterText:String = null;
-	public static var revertedClassVar:String;
-	public static var revertedVariable:String;
 
 	#if hscript
 	public static var hscript:HScript = null;
@@ -1059,10 +1057,14 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
-			//Revert
-			revertClasses(classVar, variable);
-			classVar = revertedClassVar;
-			variable = revertedVariable;
+			//0.7x File Organization Support (Now You Can Play Funkindelix Fully Functional)
+    	    if (classVar.startsWith('backend.')) classVar = classVar.replace('backend.', '');
+    	    if (classVar.startsWith('objects.')) classVar = classVar.replace('objects.', '');
+    	    if (classVar.startsWith('states.')) classVar = classVar.replace('states.', '');
+    		
+    		//Old ClientPrefs And Custom PauseMenu Support
+    		if (classVar == 'ClientPrefs' && !classVar.endsWith('data.')) variable = 'data.' + variable;
+    		if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			//Normal Code
 			var myClass:Dynamic = classCheck(classVar);
 			var variableplus:String = varCheck(myClass, variable);
@@ -1084,10 +1086,14 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			@:privateAccess
-			//Revert
-			revertClasses(classVar, variable);
-			classVar = revertedClassVar;
-			variable = revertedVariable;
+			//0.7x File Organization Support (Now You Can Play Funkindelix Fully Functional)
+    	    if (classVar.startsWith('backend.')) classVar = classVar.replace('backend.', '');
+    	    if (classVar.startsWith('objects.')) classVar = classVar.replace('objects.', '');
+    	    if (classVar.startsWith('states.')) classVar = classVar.replace('states.', '');
+    		
+    		//Old ClientPrefs And Custom PauseMenu Support
+    		if (classVar == 'ClientPrefs' && !classVar.endsWith('data.')) variable = 'data.' + variable;
+    		if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			//Normal Code
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
@@ -2984,21 +2990,6 @@ class FunkinLua {
 		#end
 	}
 	
-	public static function revertClasses(revertClassVar:String, revertVariable:String)
-	{
-	    revertClassVar = revertedClassVar;
-	    revertVariable = revertedVariable;
-	    
-	    //0.7x File Organization Support (Now You Can Play Funkindelix Fully Functional)
-	    if (revertClassVar.startsWith('backend.')) revertedClassVar = revertClassVar.replace('backend.', '');
-	    if (revertClassVar.startsWith('objects.')) revertedClassVar = revertClassVar.replace('objects.', '');
-	    if (revertClassVar.startsWith('states.')) revertedClassVar = revertClassVar.replace('states.', '');
-		
-		//Old ClientPrefs And Custom PauseMenu Support
-		if (revertClassVar == 'ClientPrefs' && !revertClassVar.startsWith('data.')) revertedVariable = 'data.' + revertVariable;
-		if (revertClassVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') revertedClassVar = 'PauseSubStateNOVA';
-	}
-
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
 		for (type in types)
