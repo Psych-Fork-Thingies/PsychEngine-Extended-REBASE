@@ -39,7 +39,7 @@ class BaseModsOptionsMenu extends MusicBeatSubstate
 
 	private var grpOptions:FlxTypedGroup<AlphabetNew>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
-	private var grpTexts:FlxTypedGroup<AttachedTextNew>;
+	private var grpTexts:FlxTypedGroup<AttachedText>;
 
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
@@ -69,7 +69,7 @@ class BaseModsOptionsMenu extends MusicBeatSubstate
 		grpOptions = new FlxTypedGroup<AlphabetNew>();
 		add(grpOptions);
 
-		grpTexts = new FlxTypedGroup<AttachedTextNew>();
+		grpTexts = new FlxTypedGroup<AttachedText>();
 		add(grpTexts);
 
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
@@ -108,7 +108,7 @@ class BaseModsOptionsMenu extends MusicBeatSubstate
 				optionText.x -= 80;
 				optionText.startPosition.x -= 80;
 				//optionText.xAdd -= 80;
-				var valueText:AttachedTextNew = new AttachedTextNew('' + optionsArray[i].getValue(), optionText.width + 60);
+				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 60);
 				valueText.sprTracker = optionText;
 				valueText.copyAlpha = true;
 				valueText.ID = i;
