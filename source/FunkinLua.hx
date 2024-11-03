@@ -1063,6 +1063,7 @@ class FunkinLua {
     	    if (classVar.startsWith('states.')) classVar = classVar.replace('states.', '');
     		
     		//Old ClientPrefs And Custom PauseMenu Support
+    		if (variable == 'globalAntialiasing') variable = 'data.antialiasing';
     		if (classVar == 'ClientPrefs' && !classVar.endsWith('data.')) variable = 'data.' + variable;
     		if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			//Normal Code
@@ -1092,6 +1093,7 @@ class FunkinLua {
     	    if (classVar.startsWith('states.')) classVar = classVar.replace('states.', '');
     		
     		//Old ClientPrefs And Custom PauseMenu Support
+    		if (variable == 'globalAntialiasing') variable = 'data.antialiasing';
     		if (classVar == 'ClientPrefs' && !classVar.endsWith('data.')) variable = 'data.' + variable;
     		if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			//Normal Code
