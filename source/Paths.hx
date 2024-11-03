@@ -245,7 +245,7 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String, postfix:String = null, ?allowtry:Bool = false):Any
+	inline static public function voices(song:String, postfix:String = null, ?allowtry:Bool = false):Sound
 	{	 
 	    var diffvoice = Difficulty.getString().toUpperCase();
 	    
@@ -334,7 +334,7 @@ class Paths
 		return foldersToCheck;
 	}
 
-	inline static public function inst(song:String):Any
+	inline static public function inst(song:String):Sound
 	{
 	    var diffvoice = Difficulty.getString().toUpperCase();
 	    
