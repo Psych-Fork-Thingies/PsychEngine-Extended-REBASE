@@ -2982,11 +2982,10 @@ class FunkinLua {
 		#end
 	}
 	
+	public var revertedClassVar:String;
+	public var revertedVariable:String;
 	public static function revertClasses(revertClassVar:String, revertVariable:String)
 	{
-	    public var revertedClassVar:String;
-	    public var revertedVariable:String;
-	    
 	    revertClassVar = revertedClassVar;
 	    revertVariable = revertedVariable;
 	    
