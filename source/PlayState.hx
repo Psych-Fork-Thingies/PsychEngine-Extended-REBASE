@@ -2575,29 +2575,19 @@ class PlayState extends MusicBeatState
 		curSong = songData.song;
 
         vocals = new FlxSound();
-        opponentVocals = new FlxSound();
-        try
-        {
-            if (songData.needsVoices)
-		        vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile));
-		}
-		catch(e:Dynamic) {}
-	    
-	    try
-	    {
-	        if (songData.needsVoices)
-	            vocals = new FlxSound().loadEmbedded(Paths.voices(songData.song));
-	    }
-	    catch(e:Dynamic) {}
-	    
+		opponentVocals = new FlxSound();
 		try
 		{
-		    if (songData.needsVoices)
-		        opponentVocals = new FlxSound().loadEmbedded(Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile));
-	    }
-	    catch(e:Dynamic) {
-	        opponentVocals = new FlxSound();
-	    }
+			if (songData.needsVoices)
+			{
+				var playerVocals = Paths.voices(songData.song, (boyfriend.vocalsFile == null || boyfriend.vocalsFile.length < 1) ? 'Player' : boyfriend.vocalsFile);
+				vocals.loadEmbedded(playerVocals != null ? playerVocals, false : Paths.voices(songData.song), false);
+				
+				var oppVocals = Paths.voices(songData.song, (dad.vocalsFile == null || dad.vocalsFile.length < 1) ? 'Opponent' : dad.vocalsFile);
+				if(oppVocals != null && oppVocals.length > 0) opponentVocals.loadEmbedded(oppVocals, false);
+			}
+		}
+		catch (e:Dynamic) {}
 
 		#if FLX_PITCH
 		vocals.pitch = playbackRate;
