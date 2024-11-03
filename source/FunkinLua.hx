@@ -2995,7 +2995,7 @@ class FunkinLua {
 	    if (revertClassVar.startsWith('states.')) revertedClassVar = revertClassVar.replace('states.', '');
 		
 		//Old ClientPrefs And Custom PauseMenu Support
-		if (revertClassVar == 'ClientPrefs' && !variable.startsWith('data.')) revertedVariable = 'data.' + revertVariable;
+		if (revertClassVar == 'ClientPrefs' && !revertClassVar.startsWith('data.')) revertedVariable = 'data.' + revertVariable;
 		if (revertClassVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') revertedClassVar = 'PauseSubStateNOVA';
 	}
 
