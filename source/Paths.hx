@@ -244,7 +244,7 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String, postfix:String = null, ?allowtry:Bool = false):Sound
+	inline static public function voices(song:String, postfix:String = null):Sound
 	{	 
 	    var diffvoice = Difficulty.getString().toUpperCase();
 	    
@@ -253,20 +253,10 @@ class Paths
 		
 		if(postfix != null) songKey += '-' + postfix;
 		
-		var voices = null;
-		if (allowtry)
-		{
-            try
-    		{
-    		    voices = returnSound('songs', songKey);
-    		}
-    		catch(e:Dynamic) {}
-		}
-        else
-		    voices = returnSound('songs', songKey);
+		var voices = returnSound(null, songKey, 'songs');
 		try
 		{
-		    voices = returnSound('songs', songdiffKey);
+		    voices = returnSound(null, songdiffKey, 'songs');
 		}
 		catch(e:Dynamic) {}
 		
@@ -340,10 +330,10 @@ class Paths
 		var songdiffKey:String = '${formatToSongPath(song)}/Inst-$diffvoice';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 		
-		var inst = returnSound('songs', songKey);
+		var inst = returnSound(null, songKey, 'songs');
 		try
 		{
-		    inst = returnSound('songs', songdiffKey);
+		    inst = returnSound(null, songdiffKey, 'songs');
 		}
 		catch(e:Dynamic) {}
 		
