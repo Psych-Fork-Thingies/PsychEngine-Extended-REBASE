@@ -45,6 +45,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 	public var showNotes:Bool = false;
 
+    private var boyfriend:Character = null;
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
@@ -126,6 +127,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				optionsArray[i].child = valueText;
 			}
 			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
+			if(optionsArray[i].showBoyfriend && boyfriend == null)
+				reloadBoyfriend();
 			updateTextFrom(optionsArray[i]);
 		}
 
@@ -273,6 +276,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				reloadCheckboxes();
 			}
 		}
+		
+		if(boyfriend != null && boyfriend.animation.curAnim.finished)
+			boyfriend.dance();
 
 		if(nextAccept > 0) {
 			nextAccept -= 1;
@@ -327,9 +333,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.setPosition(descText.x - 10, descText.y - 10);
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
-		if (optionsArray[curSelected].showNote == false){
+		
+		if(boyfriend != null)
+			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
+		if (optionsArray[curSelected].showNote == false)
 		 remove(grpNote);
-		}
 		else{
 		remove(grpNote);		
 		grpNote = new FlxTypedGroup<FlxSprite>();
@@ -338,6 +346,24 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
+	}
+	
+	public function reloadBoyfriend()
+	{
+		var wasVisible:Bool = false;
+		if(boyfriend != null) {
+			wasVisible = boyfriend.visible;
+			boyfriend.kill();
+			remove(boyfriend);
+			boyfriend.destroy();
+		}
+
+		boyfriend = new Character(840, 170, 'bf', true);
+		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
+		boyfriend.updateHitbox();
+		boyfriend.dance();
+		insert(1, boyfriend);
+		boyfriend.visible = wasVisible;
 	}
 
 	public function reloadNotes()

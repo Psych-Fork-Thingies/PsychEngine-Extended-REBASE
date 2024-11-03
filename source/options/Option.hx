@@ -18,6 +18,7 @@ class Option
 	private var variable:String = null; //Variable from ClientPrefs.hx
 	public var defaultValue:Dynamic = null;
 	
+	public var showBoyfriend:Bool = false;
 	public var showNote:Bool = false;
 
 	public var curOption:Int = 0; //Don't change this
