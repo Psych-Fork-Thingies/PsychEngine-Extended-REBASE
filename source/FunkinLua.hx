@@ -87,6 +87,8 @@ class FunkinLua {
 	public var extra3:String = ClientPrefs.data.extraKeyReturn3.toUpperCase();
 	public var extra4:String = ClientPrefs.data.extraKeyReturn4.toUpperCase();
 	public static var FPSCounterText:String = null;
+	public static var revertedClassVar:String;
+	public static var revertedVariable:String;
 
 	#if hscript
 	public static var hscript:HScript = null;
@@ -2982,8 +2984,6 @@ class FunkinLua {
 		#end
 	}
 	
-	public var revertedClassVar:String;
-	public var revertedVariable:String;
 	public static function revertClasses(revertClassVar:String, revertVariable:String)
 	{
 	    revertClassVar = revertedClassVar;
@@ -2995,7 +2995,7 @@ class FunkinLua {
 	    if (revertClassVar.startsWith('states.')) revertedClassVar = revertClassVar.replace('states.', '');
 		
 		//Old ClientPrefs And Custom PauseMenu Support
-		if (revertClassVar == 'ClientPrefs' && !variable.startsWith('data.')) revertedVariable = 'data.' + variable;
+		if (revertClassVar == 'ClientPrefs' && !variable.startsWith('data.')) revertedVariable = 'data.' + revertVariable;
 		if (revertClassVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') revertedClassVar = 'PauseSubStateNOVA';
 	}
 
