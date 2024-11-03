@@ -132,18 +132,14 @@ class Paths
 
 	public static function getPath(file:String, ?type:AssetType = TEXT, ?library:Null<String> = null, ?modsAllowed:Bool = false):String
 	{
-		#if MODS_ALLOWED
+	    #if MODS_ALLOWED
 		if(modsAllowed)
 		{
-			var customFile:String = file;
-			if (library != null)
-				customFile = '$library/$file';
-
-			var modded:String = modFolders(customFile);
+			var modded:String = modFolders(file);
 			if(FileSystem.exists(modded)) return modded;
 		}
 		#end
-
+		
 		if (library != null)
 			return getLibraryPath(file, library);
 
@@ -155,7 +151,12 @@ class Paths
 				if (OpenFlAssets.exists(levelPath, type))
 					return levelPath;
 			}
+
+			levelPath = getLibraryPathForce(file, "shared");
+			if (OpenFlAssets.exists(levelPath, type))
+				return levelPath;
 		}
+
 		return getPreloadPath(file);
 	}
 
@@ -258,15 +259,15 @@ class Paths
 		{
             try
     		{
-    		    voices = returnSound(null, songKey, 'songs');
+    		    voices = returnSound('songs', songKey);
     		}
     		catch(e:Dynamic) {}
 		}
         else
-		    voices = returnSound(null, songKey, 'songs');
+		    voices = returnSound('songs', songKey);
 		try
 		{
-		    voices = returnSound(null, songdiffKey, 'songs');
+		    voices = returnSound('songs', songdiffKey);
 		}
 		catch(e:Dynamic) {}
 		
@@ -340,10 +341,10 @@ class Paths
 		var songdiffKey:String = '${formatToSongPath(song)}/Inst-$diffvoice';
 	    var songKey:String = '${formatToSongPath(song)}/Inst';
 		
-		var inst = returnSound(null, songKey, 'songs');
+		var inst = returnSound('songs', songKey);
 		try
 		{
-		    inst = returnSound(null, songdiffKey, 'songs');
+		    inst = returnSound('songs', songdiffKey);
 		}
 		catch(e:Dynamic) {}
 		
@@ -669,40 +670,32 @@ class Paths
 	}
 	
 	public static var currentTrackedSounds:Map<String, Sound> = [];
-	public static function returnSound(path:Null<String>, key:String, ?library:String) {
+	public static function returnSound(path:String, key:String, ?library:String) {
 		#if MODS_ALLOWED
-		var modLibPath:String = '';
-		if (library != null) modLibPath = '$library/';
-		if (path != null) modLibPath += '$path';
-
-		var file:String = modsSounds(modLibPath, key);
+		var file:String = modsSounds(path, key);
 		if(FileSystem.exists(file)) {
-			if(!currentTrackedSounds.exists(file))
-			{
+			if(!currentTrackedSounds.exists(file)) {
 				currentTrackedSounds.set(file, Sound.fromFile(file));
-				//trace('precached mod sound: $file');
 			}
-			localTrackedAssets.push(file);
+			localTrackedAssets.push(key);
 			return currentTrackedSounds.get(file);
 		}
 		#end
-
 		// I hate this so god damn much
-		var gottenPath:String = '$key.$SOUND_EXT';
-		if(path != null) gottenPath = '$path/$gottenPath';
-		gottenPath = getPath(gottenPath, SOUND, library);
+		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
+		#if MODS_ALLOWED
+			currentTrackedSounds.set(gottenPath, Sound.fromFile(gottenPath));
+		#else
 		{
-			var retKey:String = (path != null) ? '$path/$key' : key;
-			retKey = ((path == 'songs') ? 'songs:' : '') + getPath('$retKey.$SOUND_EXT', SOUND, library);
-			if(OpenFlAssets.exists(retKey, SOUND))
-			{
-				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(retKey));
-				//trace('precached vanilla sound: $retKey');
-			}
+			var folder:String = '';
+			if(path == 'songs') folder = 'songs:';
+
+			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
 		}
+		#end
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
 	}
@@ -768,7 +761,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-	    return if (ClientPrefs.data.Modpack) #if mobile Sys.getCwd() + #end 'modpack/' + key; else #if mobile Sys.getCwd() + #end 'mods/' + key;
+	    return if (ClientPrefs.data.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -812,7 +805,7 @@ class Paths
 	}
 
 	static public function modFolders(key:String) {
-	    if(currentModDirectory != null && currentModDirectory.length > 0) {
+		if(currentModDirectory != null && currentModDirectory.length > 0) {
 			var fileToCheck:String = mods(currentModDirectory + '/' + key);
 			if(FileSystem.exists(fileToCheck)) {
 				return fileToCheck;
@@ -823,8 +816,9 @@ class Paths
 			var fileToCheck:String = mods(mod + '/' + key);
 			if(FileSystem.exists(fileToCheck))
 				return fileToCheck;
+
 		}
-		return if (ClientPrefs.data.Modpack) #if mobile Sys.getCwd() + #end 'modpack/' + key; else #if mobile Sys.getCwd() + #end 'mods/' + key;
+		return if (ClientPrefs.data.Modpack) Sys.getCwd() + 'modpack/' + key; else Sys.getCwd() + 'mods/' + key;
 	}
 	
 	public static function loadTopMod()
