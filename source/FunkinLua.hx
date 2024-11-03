@@ -1057,9 +1057,11 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
-			//Old Version And Custom Menu Support
-			if (classVar == 'ClientPrefs' && !variable.startsWith('data.')) variable = 'data.' + variable;
-			if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
+			//Revert
+			revertClasses(classVar, variable);
+			classVar = revertedClassVar;
+			variable = revertedVariable;
+			//Normal Code
 			var myClass:Dynamic = classCheck(classVar);
 			var variableplus:String = varCheck(myClass, variable);
 			var killMe:Array<String> = variable.split('.');
@@ -1080,9 +1082,11 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			@:privateAccess
-			//Old Version And Custom Menu Support
-			if (classVar == 'ClientPrefs' && !variable.startsWith('data.')) variable = 'data.' + variable;
-			if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
+			//Revert
+			revertClasses(classVar, variable);
+			classVar = revertedClassVar;
+			variable = revertedVariable;
+			//Normal Code
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
@@ -2976,6 +2980,24 @@ class FunkinLua {
 
 		call('onCreate', []);
 		#end
+	}
+	
+	public static function revertClasses(revertClassVar:String, revertVariable:String)
+	{
+	    public var revertedClassVar:String;
+	    public var revertedVariable:String;
+	    
+	    revertClassVar = revertedClassVar;
+	    revertVariable = revertedVariable;
+	    
+	    //0.7x File Organization Support (Now You Can Play Funkindelix Fully Functional)
+	    if (revertClassVar.startsWith('backend.')) revertedClassVar = revertClassVar.replace('backend.', '');
+	    if (revertClassVar.startsWith('objects.')) revertedClassVar = revertClassVar.replace('objects.', '');
+	    if (revertClassVar.startsWith('states.')) revertedClassVar = revertClassVar.replace('states.', '');
+		
+		//Old ClientPrefs And Custom PauseMenu Support
+		if (revertClassVar == 'ClientPrefs' && !variable.startsWith('data.')) revertedVariable = 'data.' + variable;
+		if (revertClassVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') revertedClassVar = 'PauseSubStateNOVA';
 	}
 
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
