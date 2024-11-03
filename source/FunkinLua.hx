@@ -15,7 +15,7 @@ import psychlua.LuaUtils.LuaTweenOptions;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
 
-import mobile.psychlua.Functions; //separate Funkinlua and Mobile Functions
+import mobile.psychlua.Functions;
 
 // import animateatlas.AtlasFrameMaker;
 import flixel.FlxG;
@@ -1058,7 +1058,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
 			//Old Version And Custom Menu Support
-			if (classVar == 'ClientPrefs') variable = 'data.' + variable;
+			if (classVar == 'ClientPrefs' && !variable.startsWith('data.')) variable = 'data.' + variable;
 			if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			var myClass:Dynamic = classCheck(classVar);
 			var variableplus:String = varCheck(myClass, variable);
@@ -1081,7 +1081,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			@:privateAccess
 			//Old Version And Custom Menu Support
-			if (classVar == 'ClientPrefs') variable = 'data.' + variable;
+			if (classVar == 'ClientPrefs' && !variable.startsWith('data.')) variable = 'data.' + variable;
 			if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
@@ -1434,103 +1434,79 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "keyboardJustPressed", function(name:String)
 		{
-		    #if mobile // Extend for check control for android
-            if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
-                if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.justPressed){
+		    #if mobile
+            if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){
+                if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.justPressed)
     			    return true;
-                }
-			    if (name == extra2 && MusicBeatState.mobilec.newhbox.buttonExtra2.justPressed){
+			    if (name == extra2 && MusicBeatState.mobilec.newhbox.buttonExtra2.justPressed)
     			    return true;
-                }
-                if (name == extra3 && MusicBeatState.mobilec.newhbox.buttonExtra3.justPressed){
+                if (name == extra3 && MusicBeatState.mobilec.newhbox.buttonExtra3.justPressed)
     			    return true;
-                }
-                if (name == extra4 && MusicBeatState.mobilec.newhbox.buttonExtra4.justPressed){
+                if (name == extra4 && MusicBeatState.mobilec.newhbox.buttonExtra4.justPressed)
     			    return true;
-                }
             }
             
-            if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
-                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justPressed){
+            if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){
+                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justPressed)
     			    return true;
-                }
-			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justPressed){
+			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justPressed)
     			    return true;
-                }
-                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.justPressed){
+                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.justPressed)
     			    return true;
-                }
-                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.justPressed){
+                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.justPressed)
     			    return true;
-                }
             }
             #end
 			return Reflect.getProperty(FlxG.keys.justPressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardPressed", function(name:String)
 		{
-		     #if mobile // Extend for check control for android
-           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
-			    if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.pressed){
+		     #if mobile
+           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){
+			    if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.pressed)
     			    return true;
-                }
-                if (name == extra2 && MusicBeatState.mobilec.newhbox.buttonExtra2.pressed){
+                if (name == extra2 && MusicBeatState.mobilec.newhbox.buttonExtra2.pressed)
     			    return true;
-                }
-                if (name == extra3 && MusicBeatState.mobilec.newhbox.buttonExtra3.pressed){
+                if (name == extra3 && MusicBeatState.mobilec.newhbox.buttonExtra3.pressed)
     			    return true;
-                }
-                if (name == extra4 && MusicBeatState.mobilec.newhbox.buttonExtra4.pressed){
+                if (name == extra4 && MusicBeatState.mobilec.newhbox.buttonExtra4.pressed)
     			    return true;
-                }
            }
-           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
-                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.pressed){
+           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){
+                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.pressed)
     			    return true;
-                }
-                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.pressed){
+                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.pressed)
     			    return true;
-                }
-			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.pressed){
+			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.pressed)
+    			    return true;                          
+                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.pressed)
     			    return true;
-                }                                
-                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.pressed){
-    			    return true;
-                }
            }
            #end
 			return Reflect.getProperty(FlxG.keys.pressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardReleased", function(name:String)
 		{
-		    #if mobile // Extend for check control for android
-           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
-                if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.justReleased){
+		    #if mobile
+           if (MusicBeatState.mobilec.newhbox != null && ClientPrefs.data.extraKeys != 0){
+                if (name == extra1 && MusicBeatState.mobilec.newhbox.buttonExtra1.justReleased)
     			    return true;
-                }
-			    if (name == extra2 && MusicBeatState.mobilec.newhbox.buttonExtra2.justReleased){
+			    if (name == extra2 && MusicBeatState.mobilec.newhbox.buttonExtra2.justReleased)
     			    return true;
-                }
-                if (name == extra3 && MusicBeatState.mobilec.newhbox.buttonExtra3.justReleased){
+                if (name == extra3 && MusicBeatState.mobilec.newhbox.buttonExtra3.justReleased)
     			    return true;
-                }
-                if (name == extra4 && MusicBeatState.mobilec.newhbox.buttonExtra4.justReleased){
+                if (name == extra4 && MusicBeatState.mobilec.newhbox.buttonExtra4.justReleased)
     			    return true;
-                }
            }
-           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){ //check for android control and dont check for keyboard
-                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justReleased){
+           if (MusicBeatState.mobilec.vpad != null && ClientPrefs.data.extraKeys != 0){
+                if (name == extra1 && MusicBeatState.mobilec.vpad.buttonExtra1.justReleased)
     			    return true;
-                }
-			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justReleased){
+			    if (name == extra2 && MusicBeatState.mobilec.vpad.buttonExtra2.justReleased)
     			    return true;
-                }
-                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.justReleased){
+                if (name == extra3 && MusicBeatState.mobilec.vpad.buttonExtra3.justReleased)
     			    return true;
-                }
-                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.justReleased){
+                if (name == extra4 && MusicBeatState.mobilec.vpad.buttonExtra4.justReleased)
     			    return true;
-                }
            }
            #end
 			return Reflect.getProperty(FlxG.keys.justReleased, name);

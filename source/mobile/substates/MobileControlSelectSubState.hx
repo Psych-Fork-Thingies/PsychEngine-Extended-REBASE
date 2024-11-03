@@ -238,7 +238,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     {
         super.update(elapsed);
 
-        for (touch in FlxG.mouse)
+        for (touch in FlxG.touches.list)
         {		
             if(touch.overlaps(leftArrow) && touch.justPressed)
             {
@@ -357,7 +357,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function trackbutton(touch:FlxG.mouse)
+    function trackbutton(touch:flixel.input.touch.FlxTouch)
     {
         daChoice = options[Math.floor(curSelected)];
 
@@ -431,7 +431,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function movebutton(touch:FlxG.mouse, button:UIButton)
+    function movebutton(touch:flixel.input.touch.FlxTouch, button:FlxButton)
     {
         button.x = touch.x - vpad.buttonUp.width / 2;
         button.y = touch.y - vpad.buttonUp.height / 2;
