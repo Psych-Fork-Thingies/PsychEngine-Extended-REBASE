@@ -183,8 +183,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         exit = new UIButton(0, 35, "Exit & Save", () ->
         {
             save();
-            FlxTransitionableState.skipNextTransIn = true;
-            FlxTransitionableState.skipNextTransOut = true;
             FlxG.sound.play(Paths.sound('cancelMenu'));
             close();
         });
@@ -217,8 +215,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		keyboard = new UIButton(exit.x, exit.height + exit.y + 20, "Keyboard", () ->
 		{
 			save();
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
 			removeVirtualPad();
 			leftArrow.visible = rightArrow.visible = grpControls.visible = exit.visible = reset.visible = keyboard.visible = upPozition.visible = downPozition.visible = leftPozition.visible = rightPozition.visible = extra1Pozition.visible = extra2Pozition.visible = extra3Pozition.visible = extra4Pozition.visible = tipText.visible = false;
 			titleText.text = 'Controls';
@@ -242,7 +238,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
     {
         super.update(elapsed);
 
-        for (touch in FlxG.touches.list)
+        for (touch in FlxG.mouse)
         {		
             if(touch.overlaps(leftArrow) && touch.justPressed)
             {
@@ -361,7 +357,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function trackbutton(touch:flixel.input.touch.FlxTouch)
+    function trackbutton(touch:flixel.input.mouse.FlxMouse)
     {
         daChoice = options[Math.floor(curSelected)];
 
@@ -435,7 +431,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function movebutton(touch:flixel.input.touch.FlxTouch, button:FlxButton)
+    function movebutton(touch:flixel.input.mouse.FlxMouse, button:UIButton)
     {
         button.x = touch.x - vpad.buttonUp.width / 2;
         button.y = touch.y - vpad.buttonUp.height / 2;
