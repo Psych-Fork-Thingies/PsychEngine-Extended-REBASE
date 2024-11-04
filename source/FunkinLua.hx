@@ -179,7 +179,10 @@ class FunkinLua {
 		set('rating', 0);
 		set('ratingName', '');
 		set('ratingFC', '');
-		set('version', MainMenuState.psychEngineVersion.trim());
+		if (ClientPrefs.data.HealthAndTimeBars)
+		    set('version', '0.7.1');
+		else
+		    set('version', MainMenuState.psychEngineVersion.trim());
 		set('versionEx', MainMenuState.psychExtendedVersion.trim());
 
 		set('inGameOver', false);
@@ -987,6 +990,7 @@ class FunkinLua {
 			return result;
 		});
 		Lua_helper.add_callback(lua, "setProperty", function(variable:String, value:Dynamic) {
+		    if (variable.startsWith('timeBar') && ClientPrefs.data.HealthAndTimeBars) variable = variable.replace('timeBar', 'timeBarNew');
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
 				setVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1], value);
@@ -2106,6 +2110,7 @@ class FunkinLua {
 			luaTrace('setGraphicSize: Couldnt find object: ' + obj, false, false, FlxColor.RED);
 		});
 		Lua_helper.add_callback(lua, "scaleObject", function(obj:String, x:Float, y:Float, updateHitbox:Bool = true) {
+		    if (obj.startsWith('timeBar') && ClientPrefs.data.HealthAndTimeBars) obj = obj.replace('timeBar', 'timeBarNew');
 			if(PlayState.instance.getLuaObject(obj)!=null) {
 				var shit:FlxSprite = PlayState.instance.getLuaObject(obj);
 				shit.scale.set(x, y);

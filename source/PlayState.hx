@@ -195,9 +195,12 @@ class PlayState extends MusicBeatState
     public static var NoteTime:Array<Float> = [];
 
 	private var healthBarBG:AttachedSprite;
+	public var healthBar:Dynamic;
+	
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
+	public var timeBar:Dynamic;
 
 	public var ratingsData:Array<Rating> = [];
 	public var sicks:Int = 0;
@@ -1074,10 +1077,10 @@ class PlayState extends MusicBeatState
     		timeBarBG.yAdd = -4;
     		add(timeBarBG);
     
-    		var timeBar:FlxBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+    		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
     			'songPercent', 0, 1);
     	}
-    	if (ClientPrefs.data.HealthAndTimeBars) var timeBar:HealthBar = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
+    	if (ClientPrefs.data.HealthAndTimeBars) timeBar = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
 		timeBar.scrollFactor.set();
 		if (ClientPrefs.data.HealthAndTimeBars) timeBar.screenCenter(X);
 		else
@@ -1188,12 +1191,12 @@ class PlayState extends MusicBeatState
     		add(healthBarBG);
     		if(ClientPrefs.data.downScroll) healthBarBG.y = 0.11 * FlxG.height;
     
-    		var healthBar:FlxBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, (opponentChart ? LEFT_TO_RIGHT : RIGHT_TO_LEFT), Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+    		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, (opponentChart ? LEFT_TO_RIGHT : RIGHT_TO_LEFT), Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
     			'health', 0, 2);
 		}
 		if (ClientPrefs.data.HealthAndTimeBars)
 		{
-    		var healthBar:HealthBar = new HealthBar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), function() return health, 0, 2);
+    		healthBar = new HealthBar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), function() return health, 0, 2);
     		healthBar.screenCenter(X);
     		healthBar.leftToRight = false;
 		}
