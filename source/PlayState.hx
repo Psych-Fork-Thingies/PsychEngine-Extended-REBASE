@@ -1242,13 +1242,19 @@ class PlayState extends MusicBeatState
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
-		healthBar.cameras = [camHUD];
+		if (Std.is(healthBar, FlxBasic)) {
+            var flxBasic:FlxBasic = cast(healthBar, FlxBasic);
+            flxBasic.cameras = [camHUD];
+        }
 		if (!ClientPrefs.data.HealthAndTimeBars) healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
-		timeBar.cameras = [camHUD];
+		if (Std.is(timeBar, FlxBasic)) {
+            var flxBasic:FlxBasic = cast(timeBar, FlxBasic);
+            flxBasic.cameras = [camHUD];
+        }
 		if (!ClientPrefs.data.HealthAndTimeBars) timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
