@@ -1658,6 +1658,15 @@ class FunkinLua {
 			}
 			return key;
 		});
+		
+		if (ClientPrefs.data.HealthAndTimeBars)
+		{
+    		Lua_helper.add_callback(lua, "FlxColor", function(color:String) return FlxColor.fromString(color));
+    		Lua_helper.add_callback(lua, "getColorFromName", function(color:String) return FlxColor.fromString(color));
+    		Lua_helper.add_callback(lua, "getColorFromString", function(color:String) return FlxColor.fromString(color));
+    		Lua_helper.add_callback(lua, "getColorFromHex", function(color:String) return FlxColor.fromString(color));
+    	}
+		
 		Lua_helper.add_callback(lua, "addCharacterToList", function(name:String, type:String) {
 			var charType:Int = 0;
 			switch(type.toLowerCase()) {
@@ -2176,8 +2185,12 @@ class FunkinLua {
 			var right:FlxColor = Std.parseInt(rightHex);
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
-			PlayState.instance.healthBar.createFilledBar(left, right);
-			PlayState.instance.healthBar.updateBar();
+            if (!ClientPrefs.data.HealthAndTimeBars)
+            {
+    			PlayState.instance.healthBar.createFilledBar(left, right);
+    			PlayState.instance.healthBar.updateBar();
+    		}
+    		else PlayState.instance.healthBar.setColors(left, right);
 		});
 		Lua_helper.add_callback(lua, "setTimeBarColors", function(leftHex:String, rightHex:String) {
 			var left:FlxColor = Std.parseInt(leftHex);
@@ -2185,8 +2198,12 @@ class FunkinLua {
 			var right:FlxColor = Std.parseInt(rightHex);
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
-			PlayState.instance.timeBar.createFilledBar(right, left);
-			PlayState.instance.timeBar.updateBar();
+            if (!ClientPrefs.data.HealthAndTimeBars)
+            {
+    			PlayState.instance.timeBar.createFilledBar(right, left);
+    			PlayState.instance.timeBar.updateBar();
+    		}
+    		else PlayState.instance.healthBar.setColors(left, right);
 		});
 
 		Lua_helper.add_callback(lua, "setObjectCamera", function(obj:String, camera:String = '') {
