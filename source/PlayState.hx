@@ -1,6 +1,6 @@
 package;
 
-import objects:HealthBar;
+import objects.HealthBar;
 import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
