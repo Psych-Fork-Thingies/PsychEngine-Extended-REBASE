@@ -2186,11 +2186,12 @@ class FunkinLua {
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
             if (!ClientPrefs.data.HealthAndTimeBars)
+                PlayState.instance.healthBar.setColors(left, right);
+            else
             {
     			PlayState.instance.healthBar.createFilledBar(left, right);
     			PlayState.instance.healthBar.updateBar();
     		}
-    		else PlayState.instance.healthBar.setColors(left, right);
 		});
 		Lua_helper.add_callback(lua, "setTimeBarColors", function(leftHex:String, rightHex:String) {
 			var left:FlxColor = Std.parseInt(leftHex);
@@ -2199,11 +2200,12 @@ class FunkinLua {
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
             if (!ClientPrefs.data.HealthAndTimeBars)
+                PlayState.instance.healthBar.setColors(left, right);
+            else
             {
     			PlayState.instance.timeBar.createFilledBar(right, left);
     			PlayState.instance.timeBar.updateBar();
     		}
-    		else PlayState.instance.healthBar.setColors(left, right);
 		});
 
 		Lua_helper.add_callback(lua, "setObjectCamera", function(obj:String, camera:String = '') {
