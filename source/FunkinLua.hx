@@ -990,6 +990,7 @@ class FunkinLua {
 			return result;
 		});
 		Lua_helper.add_callback(lua, "setProperty", function(variable:String, value:Dynamic) {
+		    if (variable.startsWith('timeBar') && ClientPrefs.data.HealthAndTimeBars) variable = variable.replace('timeBar', 'timeBarNew');
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
 				setVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1], value);
@@ -2109,6 +2110,7 @@ class FunkinLua {
 			luaTrace('setGraphicSize: Couldnt find object: ' + obj, false, false, FlxColor.RED);
 		});
 		Lua_helper.add_callback(lua, "scaleObject", function(obj:String, x:Float, y:Float, updateHitbox:Bool = true) {
+		    if (obj.startsWith('timeBar') && ClientPrefs.data.HealthAndTimeBars) obj = obj.replace('timeBar', 'timeBarNew');
 			if(PlayState.instance.getLuaObject(obj)!=null) {
 				var shit:FlxSprite = PlayState.instance.getLuaObject(obj);
 				shit.scale.set(x, y);
@@ -2189,7 +2191,7 @@ class FunkinLua {
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
             if (!ClientPrefs.data.HealthAndTimeBars)
-                PlayState.instance.healthBar.setColors(left, right);
+                PlayState.instance.healthBarNew.setColors(left, right);
             else
             {
     			PlayState.instance.healthBar.createFilledBar(left, right);
@@ -2203,7 +2205,7 @@ class FunkinLua {
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
             if (!ClientPrefs.data.HealthAndTimeBars)
-                PlayState.instance.healthBar.setColors(left, right);
+                PlayState.instance.timeBarNew.setColors(left, right);
             else
             {
     			PlayState.instance.timeBar.createFilledBar(right, left);

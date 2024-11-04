@@ -195,12 +195,14 @@ class PlayState extends MusicBeatState
     public static var NoteTime:Array<Float> = [];
 
 	private var healthBarBG:AttachedSprite;
-	public var healthBar:Dynamic;
+	public var healthBar:FlxBar;
 	
+	public var healthBarNew:HealthBar;
+	public var timeBarNew:HealthBar;
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
-	public var timeBar:Dynamic;
+	public var timeBar:FlxBar;
 
 	public var ratingsData:Array<Rating> = [];
 	public var sicks:Int = 0;
@@ -1080,16 +1082,25 @@ class PlayState extends MusicBeatState
     		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
     			'songPercent', 0, 1);
     	}
-    	if (ClientPrefs.data.HealthAndTimeBars) timeBar = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
-		timeBar.scrollFactor.set();
-		if (ClientPrefs.data.HealthAndTimeBars) timeBar.screenCenter(X);
+    	if (ClientPrefs.data.HealthAndTimeBars) timeBarNew = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
+		if (ClientPrefs.data.HealthAndTimeBars) timeBarNew.scrollFactor.set();
+		else timeBar.scrollFactor.set();
+		if (ClientPrefs.data.HealthAndTimeBars) timeBarNew.screenCenter(X);
 		else
 		{
     		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
     		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		}
-		timeBar.alpha = 0;
-		timeBar.visible = showTime;
+		if (ClientPrefs.data.HealthAndTimeBars)
+		{
+    		timeBarNew.alpha = 0;
+    		timeBarNew.visible = showTime;
+    	}
+    	else
+    	{
+    		timeBar.alpha = 0;
+    		timeBar.visible = showTime;
+    	}
 		add(timeBar);
 		add(timeTxt);
 		if (!ClientPrefs.data.HealthAndTimeBars) timeBarBG.sprTracker = timeBar;
@@ -1196,32 +1207,42 @@ class PlayState extends MusicBeatState
 		}
 		if (ClientPrefs.data.HealthAndTimeBars)
 		{
-    		healthBar = new HealthBar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), function() return health, 0, 2);
-    		healthBar.screenCenter(X);
-    		healthBar.leftToRight = false;
+    		healthBarNew = new HealthBar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), function() return health, 0, 2);
+    		healthBarNew.screenCenter(X);
+    		healthBarNew.leftToRight = false;
 		}
-		healthBar.scrollFactor.set();
-		// healthBar
-		healthBar.visible = !ClientPrefs.data.hideHud;
-		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
+		if (ClientPrefs.data.HealthAndTimeBars)
+		{
+    		healthBarNew.scrollFactor.set();
+    		healthBarNew.visible = !ClientPrefs.data.hideHud;
+    		healthBarNew.alpha = ClientPrefs.data.healthBarAlpha;
+    	}
+    	else
+    	{
+    		healthBar.scrollFactor.set();
+    		healthBar.visible = !ClientPrefs.data.hideHud;
+    		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
+    	}
 		if (ClientPrefs.data.HealthAndTimeBars) reloadHealthBarColors();
 		add(healthBar);
 		if (!ClientPrefs.data.HealthAndTimeBars) healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - 75;
+		if (ClientPrefs.data.HealthAndTimeBars) iconP1.y = healthBarNew.y - 75;
+		else iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.data.hideHud;
 		iconP1.alpha = ClientPrefs.data.healthBarAlpha;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP2.y = healthBar.y - 75;
+		if (ClientPrefs.data.HealthAndTimeBars) iconP2.y = healthBarNew.y - 75;
+		else iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.data.hideHud;
 		iconP2.alpha = ClientPrefs.data.healthBarAlpha;
 		add(iconP2);
 		if (!ClientPrefs.data.HealthAndTimeBars) reloadHealthBarColors();
 
-        if (ClientPrefs.data.HealthAndTimeBars) scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
+        if (ClientPrefs.data.HealthAndTimeBars) scoreTxt = new FlxText(0, healthBarNew.y + 40, FlxG.width, "", 20);
         else scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
@@ -1229,7 +1250,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.data.hideHud;
 		add(scoreTxt);
 
-        if (ClientPrefs.data.HealthAndTimeBars) botplayTxt = new FlxText(400, timeBar.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+        if (ClientPrefs.data.HealthAndTimeBars) botplayTxt = new FlxText(400, timeBarNew.y + 55, FlxG.width - 800, "BOTPLAY", 32);
         else botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
@@ -1237,24 +1258,22 @@ class PlayState extends MusicBeatState
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
 		if(ClientPrefs.data.downScroll && !ClientPrefs.data.HealthAndTimeBars) botplayTxt.y = timeBarBG.y - 78;
-		else if (ClientPrefs.data.downScroll && ClientPrefs.data.HealthAndTimeBars) botplayTxt.y = timeBar.y - 78;
+		else if (ClientPrefs.data.downScroll && ClientPrefs.data.HealthAndTimeBars) botplayTxt.y = timeBarNew.y - 78;
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
-		if (Std.is(healthBar, FlxBasic)) {
-            var flxBasic:FlxBasic = cast(healthBar, FlxBasic);
-            flxBasic.cameras = [camHUD];
-        }
+		if (ClientPrefs.data.HealthAndTimeBars) healthBarNew.cameras = [camHUD];
+		else healthBar.cameras = [camHUD];
 		if (!ClientPrefs.data.HealthAndTimeBars) healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
-		if (Std.is(timeBar, FlxBasic)) {
-            var flxBasic:FlxBasic = cast(timeBar, FlxBasic);
-            flxBasic.cameras = [camHUD];
-        }
+		if (ClientPrefs.data.HealthAndTimeBars)
+    		timeBarNew.cameras = [camHUD];
+    	else
+    		timeBar.cameras = [camHUD];
 		if (!ClientPrefs.data.HealthAndTimeBars) timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
@@ -1585,9 +1604,9 @@ class PlayState extends MusicBeatState
 	public function reloadHealthBarColors() {
 	    if (ClientPrefs.data.HealthAndTimeBars)
 	    {
-	        if (!opponentChart) healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+	        if (!opponentChart) healthBarNew.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
     			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
-    		else healthBar.setColors(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
+    		else healthBarNew.setColors(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
     			FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
 		}
 		else
@@ -3253,8 +3272,8 @@ class PlayState extends MusicBeatState
 
         if (ClientPrefs.data.HealthAndTimeBars)
         {
-    	    iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		    iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+    	    iconP1.x = healthBarNew.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+		    iconP2.x = healthBarNew.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
     	}
     	else
         {
@@ -3265,15 +3284,30 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
-			(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 1;
-		else
-			(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 0;
-
-		if (healthBar.percent > 80)
-			(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 1;
-		else
-			(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 0;
+        if (ClientPrefs.data.HealthAndTimeBars)
+        {
+    		if (healthBarNew.percent < 20)
+    			(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 1;
+    		else
+    			(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 0;
+    
+    		if (healthBarNew.percent > 80)
+    			(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 1;
+    		else
+    			(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 0;
+    	}
+    	else
+    	{
+    		if (healthBar.percent < 20)
+    			(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 1;
+    		else
+    			(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 0;
+    
+    		if (healthBar.percent > 80)
+    			(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 1;
+    		else
+    			(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 0;
+    	}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -4210,7 +4244,8 @@ class PlayState extends MusicBeatState
 
 		MusicBeatState.mobilec.visible = false;
 		if (!ClientPrefs.data.HealthAndTimeBars) timeBarBG.visible = false;
-		timeBar.visible = false;
+		if (ClientPrefs.data.HealthAndTimeBars) timeBarNew.visible = false;
+		else timeBar.visible = false;
 		timeTxt.visible = false;
 		canPause = false;
 		endingSong = true;
