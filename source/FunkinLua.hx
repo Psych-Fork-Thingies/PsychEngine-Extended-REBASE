@@ -977,6 +977,12 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String) {
+		    var split:Array<String> = variable.split('.');
+			if(split.length > 1)
+				return getVarInArray(getPropertyLoop(split, true, true), split[split.length-1]);
+			return getVarInArray(getInstance(), variable);
+			
+			/* 0.6.3 getProperty
 			var result:Dynamic = null;
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1)
@@ -985,6 +991,7 @@ class FunkinLua {
 				result = getVarInArray(getInstance(), variable);
 
 			return result;
+			*/
 		});
 		Lua_helper.add_callback(lua, "setProperty", function(variable:String, value:Dynamic) {
 			var killMe:Array<String> = variable.split('.');
@@ -2990,6 +2997,30 @@ class FunkinLua {
 
 		call('onCreate', []);
 		#end
+	}
+	
+	public static function getPropertyLoop(split:Array<String>, ?checkForTextsToo:Bool = true, ?getProperty:Bool=true):Dynamic
+	{
+		var obj:Dynamic = getObjectDirectly(split[0], checkForTextsToo);
+		var end = split.length;
+		if(getProperty) end = split.length-1;
+
+		for (i in 1...end) obj = getVarInArray(obj, split[i]);
+		return obj;
+	}
+
+	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
+	{
+		switch(objectName)
+		{
+			case 'this' | 'instance' | 'game':
+				return PlayState.instance;
+			
+			default:
+				var obj:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
+				if(obj == null) obj = getVarInArray(getInstance(), objectName);
+				return obj;
+		}
 	}
 	
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
