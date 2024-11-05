@@ -3008,20 +3008,6 @@ class FunkinLua {
 		for (i in 1...end) obj = getVarInArray(obj, split[i]);
 		return obj;
 	}
-
-	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
-	{
-		switch(objectName)
-		{
-			case 'this' | 'instance' | 'game':
-				return PlayState.instance;
-			
-			default:
-				var obj:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
-				if(obj == null) obj = getVarInArray(getInstance(), objectName);
-				return obj;
-		}
-	}
 	
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
@@ -3525,11 +3511,23 @@ class FunkinLua {
 
 	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
 	{
+	    switch(objectName)
+		{
+			case 'this' | 'instance' | 'game':
+				return PlayState.instance;
+			
+			default:
+				var obj:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
+				if(obj == null) obj = getVarInArray(getInstance(), objectName);
+				return obj;
+		}
+	    /* 0.6.3
 		var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
 		if(coverMeInPiss==null)
 			coverMeInPiss = getVarInArray(getInstance(), objectName);
 
 		return coverMeInPiss;
+		*/
 	}
 
 	function typeToString(type:Int):String {
