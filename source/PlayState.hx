@@ -1082,26 +1082,26 @@ class PlayState extends MusicBeatState
     		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
     			'songPercent', 0, 1);
     	}
-    	if (ClientPrefs.data.HealthAndTimeBars) timeBarNew = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
-		if (ClientPrefs.data.HealthAndTimeBars) timeBarNew.scrollFactor.set();
-		else timeBar.scrollFactor.set();
-		if (ClientPrefs.data.HealthAndTimeBars) timeBarNew.screenCenter(X);
-		else
-		{
-    		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-    		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
-		}
 		if (ClientPrefs.data.HealthAndTimeBars)
 		{
-    		timeBarNew.alpha = 0;
-    		timeBarNew.visible = showTime;
-    	}
-    	else
-    	{
+		    timeBarNew = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
+		    timeBarNew.scrollFactor.set();
+		    timeBarNew.alpha = 0;
+		    timeBarNew.visible = showTime;
+		}
+		else
+		{
+		    timeBarNew = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
+    	    timeBar.scrollFactor.set();
+    	    timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+    		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
     		timeBar.alpha = 0;
     		timeBar.visible = showTime;
     	}
-		add(timeBar);
+    	if (ClientPrefs.data.HealthAndTimeBars)
+		    add(timeBarNew);
+		else
+		    add(timeBar);
 		add(timeTxt);
 		if (!ClientPrefs.data.HealthAndTimeBars) timeBarBG.sprTracker = timeBar;
 
@@ -1210,13 +1210,10 @@ class PlayState extends MusicBeatState
     		healthBarNew = new HealthBar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), function() return health, 0, 2);
     		healthBarNew.screenCenter(X);
     		healthBarNew.leftToRight = false;
-		}
-		if (ClientPrefs.data.HealthAndTimeBars)
-		{
     		healthBarNew.scrollFactor.set();
     		healthBarNew.visible = !ClientPrefs.data.hideHud;
     		healthBarNew.alpha = ClientPrefs.data.healthBarAlpha;
-    	}
+		}
     	else
     	{
     		healthBar.scrollFactor.set();
@@ -1224,7 +1221,10 @@ class PlayState extends MusicBeatState
     		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
     	}
 		if (ClientPrefs.data.HealthAndTimeBars) reloadHealthBarColors();
-		add(healthBar);
+		if (ClientPrefs.data.HealthAndTimeBars)
+		    add(healthBarNew);
+		else
+		    add(healthBar);
 		if (!ClientPrefs.data.HealthAndTimeBars) healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
