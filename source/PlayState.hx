@@ -1091,7 +1091,6 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-		    timeBarNew = new HealthBar(0, timeTxt.y + (timeTxt.height / 4), 'timeBar', function() return songPercent, 0, 1);
     	    timeBar.scrollFactor.set();
     	    timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
     		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
