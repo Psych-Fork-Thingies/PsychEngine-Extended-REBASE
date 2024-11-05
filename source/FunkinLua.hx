@@ -179,10 +179,7 @@ class FunkinLua {
 		set('rating', 0);
 		set('ratingName', '');
 		set('ratingFC', '');
-		if (ClientPrefs.data.HealthAndTimeBars)
-		    set('version', '0.7.1');
-		else
-		    set('version', MainMenuState.psychEngineVersion.trim());
+		set('version', MainMenuState.psychEngineVersion.trim());
 		set('versionEx', MainMenuState.psychExtendedVersion.trim());
 
 		set('inGameOver', false);
@@ -990,7 +987,6 @@ class FunkinLua {
 			return result;
 		});
 		Lua_helper.add_callback(lua, "setProperty", function(variable:String, value:Dynamic) {
-		    if (variable.startsWith('timeBar') && ClientPrefs.data.HealthAndTimeBars) variable = variable.replace('timeBar', 'timeBarNew');
 			var killMe:Array<String> = variable.split('.');
 			if(killMe.length > 1) {
 				setVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1], value);
@@ -1662,15 +1658,6 @@ class FunkinLua {
 			}
 			return key;
 		});
-		
-		if (ClientPrefs.data.HealthAndTimeBars)
-		{
-    		Lua_helper.add_callback(lua, "FlxColor", function(color:String) return FlxColor.fromString(color));
-    		Lua_helper.add_callback(lua, "getColorFromName", function(color:String) return FlxColor.fromString(color));
-    		Lua_helper.add_callback(lua, "getColorFromString", function(color:String) return FlxColor.fromString(color));
-    		Lua_helper.add_callback(lua, "getColorFromHex", function(color:String) return FlxColor.fromString(color));
-    	}
-		
 		Lua_helper.add_callback(lua, "addCharacterToList", function(name:String, type:String) {
 			var charType:Int = 0;
 			switch(type.toLowerCase()) {
@@ -2110,7 +2097,6 @@ class FunkinLua {
 			luaTrace('setGraphicSize: Couldnt find object: ' + obj, false, false, FlxColor.RED);
 		});
 		Lua_helper.add_callback(lua, "scaleObject", function(obj:String, x:Float, y:Float, updateHitbox:Bool = true) {
-		    if (obj.startsWith('timeBar') && ClientPrefs.data.HealthAndTimeBars) obj = obj.replace('timeBar', 'timeBarNew');
 			if(PlayState.instance.getLuaObject(obj)!=null) {
 				var shit:FlxSprite = PlayState.instance.getLuaObject(obj);
 				shit.scale.set(x, y);
@@ -2190,13 +2176,8 @@ class FunkinLua {
 			var right:FlxColor = Std.parseInt(rightHex);
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
-            if (!ClientPrefs.data.HealthAndTimeBars)
-                PlayState.instance.healthBarNew.setColors(left, right);
-            else
-            {
-    			PlayState.instance.healthBar.createFilledBar(left, right);
-    			PlayState.instance.healthBar.updateBar();
-    		}
+			PlayState.instance.healthBar.createFilledBar(left, right);
+			PlayState.instance.healthBar.updateBar();
 		});
 		Lua_helper.add_callback(lua, "setTimeBarColors", function(leftHex:String, rightHex:String) {
 			var left:FlxColor = Std.parseInt(leftHex);
@@ -2204,13 +2185,8 @@ class FunkinLua {
 			var right:FlxColor = Std.parseInt(rightHex);
 			if(!rightHex.startsWith('0x')) right = Std.parseInt('0xff' + rightHex);
 
-            if (!ClientPrefs.data.HealthAndTimeBars)
-                PlayState.instance.timeBarNew.setColors(left, right);
-            else
-            {
-    			PlayState.instance.timeBar.createFilledBar(right, left);
-    			PlayState.instance.timeBar.updateBar();
-    		}
+			PlayState.instance.timeBar.createFilledBar(right, left);
+			PlayState.instance.timeBar.updateBar();
 		});
 
 		Lua_helper.add_callback(lua, "setObjectCamera", function(obj:String, camera:String = '') {

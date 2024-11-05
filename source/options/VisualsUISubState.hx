@@ -84,12 +84,6 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = changeIndieCrossMenus;
 		#end
-		
-		var option:Option = new Option('0.7x Hud',
-			'If checked, game uses 0.7x Hud System.',
-			'HealthAndTimeBars',
-			'bool');
-		addOption(option);
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",

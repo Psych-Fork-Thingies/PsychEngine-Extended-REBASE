@@ -10,7 +10,6 @@ import TitleState;
 // Add a variable here and it will get automatically saved
 @:structInit class SaveVariables {
 	//Psych Extended
-	public var HealthAndTimeBars:Bool = false;
 	public var NoteSkin:String = 'original';
 	public var FreeplayStyle:String = 'Psych';
     public var PauseMenuStyle:String = 'Psych';
