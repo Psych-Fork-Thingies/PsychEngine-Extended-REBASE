@@ -10,9 +10,6 @@ import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
-import mobile.objects.TouchButton as FlxButton;
-import flixel.ui.FlxButton as FlxButtonOld;
-import mobile.objects.TouchButton as FlxNewButton;
 
 #if mobile
 import flixel.group.FlxGroup;
@@ -507,14 +504,14 @@ class Controls extends FlxActionSet
 	public var trackedInputsUI:Array<FlxActionInput> = [];
 	public var trackedInputsNOTES:Array<FlxActionInput> = [];
 
-	public function addButtonNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState):Void
+	public function addButtonNOTES(action:FlxActionDigital, button:TouchButton, state:FlxInputState):Void
 	{
 		var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedInputsNOTES.push(input);
 		action.add(input);
 	}
 
-	public function addButtonUI(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState):Void
+	public function addButtonUI(action:FlxActionDigital, button:TouchButton, state:FlxInputState):Void
 	{
 		if (button == null)
 			return;
@@ -524,15 +521,7 @@ class Controls extends FlxActionSet
 		action.add(input);
 	}
 	
-	//fuck you FlxButton
-	public function addButtonNOTES2(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState)
-	{
-		var input = new FlxActionInputDigitalIFlxInput(button, state);
-		trackedInputsNOTES.push(input);
-		action.add(input);
-	}
-	
-	public function addbuttonuNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState) 
+	public function addHitboxNOTES(action:FlxActionDigital, button:TouchButton, state:FlxInputState)
 	{
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedInputsNOTES.push(input);
@@ -541,23 +530,23 @@ class Controls extends FlxActionSet
 
 	public function setHitBox(hitbox:FlxHitbox) 
 	{
-		inline forEachBound(Control.NOTE_UP, (action, state) -> addbuttonuNOTES(action, hitbox.buttonUp, state));
-		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addbuttonuNOTES(action, hitbox.buttonDown, state));
-		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addbuttonuNOTES(action, hitbox.buttonLeft, state));
-		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addbuttonuNOTES(action, hitbox.buttonRight, state));	
+		inline forEachBound(Control.NOTE_UP, (action, state) -> addHitboxNOTES(action, hitbox.buttonUp, state));
+		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addHitboxNOTES(action, hitbox.buttonDown, state));
+		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addHitboxNOTES(action, hitbox.buttonLeft, state));
+		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addHitboxNOTES(action, hitbox.buttonRight, state));	
 	}
 	
 	
 	public function setNewHitBox(Hitbox:FlxNewHitbox)
 	{
-		inline forEachBound(Control.NOTE_UP, (action, state) -> addButtonNOTES2(action, Hitbox.buttonUp, state));
-		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addButtonNOTES2(action, Hitbox.buttonDown, state));
-		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addButtonNOTES2(action, Hitbox.buttonLeft, state));
-		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addButtonNOTES2(action, Hitbox.buttonRight, state));
-		inline forEachBound(Control.EXTRA1, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra1, state));
-		inline forEachBound(Control.EXTRA2, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra2, state));
-		inline forEachBound(Control.EXTRA3, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra3, state));
-		inline forEachBound(Control.EXTRA4, (action, state) -> addButtonNOTES2(action, Hitbox.buttonExtra4, state));
+		inline forEachBound(Control.NOTE_UP, (action, state) -> addHitboxNOTES(action, Hitbox.buttonUp, state));
+		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addHitboxNOTES(action, Hitbox.buttonDown, state));
+		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addHitboxNOTES(action, Hitbox.buttonLeft, state));
+		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addHitboxNOTES(action, Hitbox.buttonRight, state));
+		inline forEachBound(Control.EXTRA1, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra1, state));
+		inline forEachBound(Control.EXTRA2, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra2, state));
+		inline forEachBound(Control.EXTRA3, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra3, state));
+		inline forEachBound(Control.EXTRA4, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra4, state));
 	}
 
 	public function setVirtualPadUI(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode):Void
