@@ -284,7 +284,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
                     if (!vpad.buttonLeft.justPressed) {
                         bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
                         bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = bindbutton;
+                        bindbutton = vpad.buttonLeft;
                         buttonistouched = true;
                         setbuttontexts();
                     }
