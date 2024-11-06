@@ -67,7 +67,6 @@ class TouchButton extends TypedTouchButton<FlxSprite>
 
 		initLabel(Text);
 	}
-	}
 
 	/**
 	 * Updates the size of the text field to match the button.
