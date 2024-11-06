@@ -52,7 +52,7 @@ import Discord;
 
 // Mobile Things
 import mobile.flixel.*;
-import mobile.input.*;
+import mobile.input.MobileInputID as FlxButton; //I'm lazy
 import mobile.states.*;
 import mobile.objects.*;
 import mobile.options.*;
