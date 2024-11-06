@@ -52,7 +52,6 @@ import Discord;
 
 // Mobile Things
 import mobile.flixel.*;
-import mobile.input.MobileInputID;
 import mobile.states.*;
 import mobile.objects.*;
 import mobile.options.*;

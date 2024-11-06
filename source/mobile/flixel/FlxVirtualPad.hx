@@ -15,46 +15,46 @@ import haxe.ds.StringMap;
 
 class FlxVirtualPad extends FlxSpriteGroup {
 	//Actions
-	public var buttonA:TouchButton;
-	public var buttonB:TouchButton;
-	public var buttonC:TouchButton;
-	public var buttonD:TouchButton;
-	public var buttonE:TouchButton;
-	public var buttonM:TouchButton;
-	public var buttonP:TouchButton;
-	public var buttonV:TouchButton;
-	public var buttonX:TouchButton;
-	public var buttonY:TouchButton;
-	public var buttonZ:TouchButton;
-	public var buttonF:TouchButton;
-	public var buttonG:TouchButton;
+	public var buttonA:FlxButton;
+	public var buttonB:FlxButton;
+	public var buttonC:FlxButton;
+	public var buttonD:FlxButton;
+	public var buttonE:FlxButton;
+	public var buttonM:FlxButton;
+	public var buttonP:FlxButton;
+	public var buttonV:FlxButton;
+	public var buttonX:FlxButton;
+	public var buttonY:FlxButton;
+	public var buttonZ:FlxButton;
+	public var buttonF:FlxButton;
+	public var buttonG:FlxButton;
 	
 	//Extra
-    public var buttonExtra1:TouchButton;
-	public var buttonExtra2:TouchButton;
-	public var buttonExtra3:TouchButton;
-	public var buttonExtra4:TouchButton;
+    public var buttonExtra1:FlxButton;
+	public var buttonExtra2:FlxButton;
+	public var buttonExtra3:FlxButton;
+	public var buttonExtra4:FlxButton;
     
 	//DPad
-	public var buttonLeft:TouchButton;
-	public var buttonUp:TouchButton;
-	public var buttonRight:TouchButton;
-	public var buttonDown:TouchButton;
+	public var buttonLeft:FlxButton;
+	public var buttonUp:FlxButton;
+	public var buttonRight:FlxButton;
+	public var buttonDown:FlxButton;
 
 	//PAD DUO MODE
-	public var buttonLeft2:TouchButton;
-	public var buttonUp2:TouchButton;
-	public var buttonRight2:TouchButton;
-	public var buttonDown2:TouchButton;
+	public var buttonLeft2:FlxButton;
+	public var buttonUp2:FlxButton;
+	public var buttonRight2:FlxButton;
+	public var buttonDown2:FlxButton;
     
-    public var buttonCELeft:TouchButton;
-	public var buttonCEUp:TouchButton;
-	public var buttonCERight:TouchButton;
-	public var buttonCEDown:TouchButton;
-	public var buttonCEG:TouchButton;
+    public var buttonCELeft:FlxButton;
+	public var buttonCEUp:FlxButton;
+	public var buttonCERight:FlxButton;
+	public var buttonCEDown:FlxButton;
+	public var buttonCEG:FlxButton;
 	
-	public var buttonCEUp_M:TouchButton;
-	public var buttonCEDown_M:TouchButton;
+	public var buttonCEUp_M:FlxButton;
+	public var buttonCEDown_M:FlxButton;
 	
 	public var dPad:FlxSpriteGroup;
 	public var actions:FlxSpriteGroup;
@@ -81,36 +81,36 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		actions = new FlxSpriteGroup();
 		actions.scrollFactor.set();
 
-		buttonA = new TouchButton(0, 0);
-		buttonB = new TouchButton(0, 0);
-		buttonC = new TouchButton(0, 0);
-		buttonD = new TouchButton(0, 0);
-		buttonE = new TouchButton(0, 0);
-		buttonM = new TouchButton(0, 0);
-		buttonP = new TouchButton(0, 0);
-		buttonV = new TouchButton(0, 0);
-		buttonX = new TouchButton(0, 0);
-		buttonY = new TouchButton(0, 0);
-		buttonZ = new TouchButton(0, 0);
+		buttonA = new FlxButton(0, 0);
+		buttonB = new FlxButton(0, 0);
+		buttonC = new FlxButton(0, 0);
+		buttonD = new FlxButton(0, 0);
+		buttonE = new FlxButton(0, 0);
+		buttonM = new FlxButton(0, 0);
+		buttonP = new FlxButton(0, 0);
+		buttonV = new FlxButton(0, 0);
+		buttonX = new FlxButton(0, 0);
+		buttonY = new FlxButton(0, 0);
+		buttonZ = new FlxButton(0, 0);
 
-		buttonLeft = new TouchButton(0, 0);
-		buttonUp = new TouchButton(0, 0);
-		buttonRight = new TouchButton(0, 0);
-		buttonDown = new TouchButton(0, 0);
+		buttonLeft = new FlxButton(0, 0);
+		buttonUp = new FlxButton(0, 0);
+		buttonRight = new FlxButton(0, 0);
+		buttonDown = new FlxButton(0, 0);
 
-		buttonLeft2 = new TouchButton(0, 0);
-		buttonUp2 = new TouchButton(0, 0);
-		buttonRight2 = new TouchButton(0, 0);
-		buttonDown2 = new TouchButton(0, 0);
+		buttonLeft2 = new FlxButton(0, 0);
+		buttonUp2 = new FlxButton(0, 0);
+		buttonRight2 = new FlxButton(0, 0);
+		buttonDown2 = new FlxButton(0, 0);
         
-        buttonCELeft = new TouchButton(0, 0);
-		buttonCEUp = new TouchButton(0, 0);
-		buttonCERight = new TouchButton(0, 0);
-		buttonCEDown = new TouchButton(0, 0);
-		buttonCEG = new TouchButton(0, 0);
+        buttonCELeft = new FlxButton(0, 0);
+		buttonCEUp = new FlxButton(0, 0);
+		buttonCERight = new FlxButton(0, 0);
+		buttonCEDown = new FlxButton(0, 0);
+		buttonCEG = new FlxButton(0, 0);
 		
-		buttonCEUp_M = new TouchButton(0, 0);
-		buttonCEDown_M = new TouchButton(0, 0);
+		buttonCEUp_M = new FlxButton(0, 0);
+		buttonCEDown_M = new FlxButton(0, 0);
 		
 		switch (DPad){
 			case UP_DOWN:
@@ -284,7 +284,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		}
 	}
 
-	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):TouchButton {
+	public function createButton(x:Float, y:Float, width:Int, height:Int, Frames:String, ColorS:Int, ?colored:Bool = true):FlxButton {
 	if (ClientPrefs.data.virtualpadType == 'New') {
 	    var frames:FlxGraphic;
 
@@ -298,7 +298,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		else
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/original/default.png'));
 
-		var button:TouchButton = new TouchButton(x, y);
+		var button:FlxButton = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
 		button.solid = false;
 		button.immovable = true;
@@ -314,7 +314,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	}
 	else // you can still use the old controls if you want
 	{
-		var button = new TouchButton(x, y);
+		var button = new FlxButton(x, y);
 		button.frames = FlxTileFrames.fromFrame(getFrames().getByName(Frames), FlxPoint.get(width, height));
 		button.resetSizeFromFrame();
 		button.solid = false;
@@ -345,7 +345,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 	{
 		super.destroy();
 		for (field in Reflect.fields(this))
-			if (Std.isOfType(Reflect.field(this, field), TouchButton))
+			if (Std.isOfType(Reflect.field(this, field), FlxButton))
 				Reflect.setField(this, field, FlxDestroyUtil.destroy(Reflect.field(this, field)));
 	}
 }

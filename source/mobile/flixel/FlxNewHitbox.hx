@@ -22,15 +22,15 @@ import openfl.geom.Matrix;
  */
 class FlxNewHitbox extends FlxSpriteGroup
 {
-	public var buttonLeft:TouchButton = new TouchButton(0, 0);
-	public var buttonDown:TouchButton = new TouchButton(0, 0);
-	public var buttonUp:TouchButton = new TouchButton(0, 0);
-	public var buttonRight:TouchButton = new TouchButton(0, 0);
+	public var buttonLeft:FlxButton = new FlxButton(0, 0);
+	public var buttonDown:FlxButton = new FlxButton(0, 0);
+	public var buttonUp:FlxButton = new FlxButton(0, 0);
+	public var buttonRight:FlxButton = new FlxButton(0, 0);
 	
-	public var buttonExtra1:TouchButton = new TouchButton(0, 0);
-    public var buttonExtra2:TouchButton = new TouchButton(0, 0);
-    public var buttonExtra3:TouchButton = new TouchButton(0, 0);
-	public var buttonExtra4:TouchButton = new TouchButton(0, 0);
+	public var buttonExtra1:FlxButton = new FlxButton(0, 0);
+    public var buttonExtra2:FlxButton = new FlxButton(0, 0);
+    public var buttonExtra3:FlxButton = new FlxButton(0, 0);
+	public var buttonExtra4:FlxButton = new FlxButton(0, 0);
 	public static var hitbox_hint:FlxSprite;
 
 	/**
@@ -228,9 +228,9 @@ class FlxNewHitbox extends FlxSpriteGroup
 		return bitmap;
 	}
 
-	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):TouchButton
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
-		var hint:TouchButton = new TouchButton(X, Y);
+		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		hint.solid = false;
 		hint.immovable = true;
