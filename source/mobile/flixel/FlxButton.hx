@@ -388,12 +388,13 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		var overlap = false;
 		#if desktop
-		var button = FlxMouseButton.getByID(FlxMouseButtonID.LEFT);
+		//var button = FlxMouseButton.getByID(FlxMouseButtonID.LEFT);
+		var button = FlxG.mouse;
 		#end
 
 		for (camera in cameras)
 		    #if desktop
-			if (checkInput(FlxG.mouse, button, button.justPressedPosition, camera) && ClientPrefs.data.VirtualPadAlpha != 0)
+			if (checkInput(button, button, button.justPressedPosition, camera) && ClientPrefs.data.VirtualPadAlpha != 0)
 			#else
 			for (touch in FlxG.touches.list)
 				if (checkInput(touch, touch, touch.justPressedPosition, camera))
