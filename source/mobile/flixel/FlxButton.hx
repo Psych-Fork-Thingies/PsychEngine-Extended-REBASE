@@ -387,18 +387,18 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	function checkTouchOverlap():Bool
 	{
 		var overlap = false;
-		#if desktop
-		var button = FlxMouseButton.getByID(FlxMouseButtonID.LEFT);
-		#end
 
 		for (camera in cameras)
+		{
 		    #if desktop
-			if (checkInput(FlxG.mouse, button, FlxG.mouse.justPressedPosition, camera) && ClientPrefs.data.VirtualPadAlpha != 0)
+		    var button = FlxMouseButton.getByID(FlxMouseButtonID.LEFT);
+			if (checkInput(FlxG.mouse, button, button.justPressedPosition, camera) && ClientPrefs.data.VirtualPadAlpha != 0)
 			#else
 			for (touch in FlxG.touches.list)
 				if (checkInput(touch, touch, touch.justPressedPosition, camera))
 			#end
 					overlap = true;
+		}
 
 		return overlap;
 	}
@@ -433,7 +433,11 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		else if (status == FlxButton.NORMAL)
 		{
 			// Allow 'swiping' to press a button (dragging it over the button while pressed)
+			#if desktop
+			if (allowSwiping && input.justReleased)
+			#else
 			if (allowSwiping && input.pressed)
+			#end
 				onDownHandler();
 			else
 				onOverHandler();
