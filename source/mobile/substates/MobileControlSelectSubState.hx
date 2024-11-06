@@ -354,7 +354,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function trackbutton(touch:FlxG.mouse)
+    function trackbutton()
     {
         daChoice = options[Math.floor(curSelected)];
 
@@ -362,33 +362,33 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         {
             if (buttonistouched)
             {
-                if (bindbutton.justReleased && touch.justReleased)
+                if (bindbutton.justReleased && FlxG.mouse.justReleased)
                 {
                     bindbutton = null;
                     buttonistouched = false;
                 }
                 else 
                 {
-                    movebutton(touch, bindbutton);
+                    movebutton(bindbutton);
                     setbuttontexts();
                 }
             }
             else 
             {
                 if (vpad.buttonUp.justPressed) {
-                    movebutton(touch, vpad.buttonUp);
+                    movebutton(vpad.buttonUp);
                 }
 
                 if (vpad.buttonDown.justPressed) {
-                    movebutton(touch, vpad.buttonDown);
+                    movebutton(vpad.buttonDown);
                 }
 
                 if (vpad.buttonRight.justPressed) {
-                    movebutton(touch, vpad.buttonRight);
+                    movebutton(vpad.buttonRight);
                 }
 
                 if (vpad.buttonLeft.justPressed) {
-                    movebutton(touch, vpad.buttonLeft);
+                    movebutton(vpad.buttonLeft);
                 }
             }
         }
@@ -396,42 +396,42 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         {
             if (buttonistouched)
             {
-                if (bindbutton.justReleased && touch.justReleased)
+                if (bindbutton.justReleased && FlxG.mouse.justReleased)
                 {
                     bindbutton = null;
                     buttonistouched = false;
                 }
                 else 
                 {
-                    movebutton(touch, bindbutton);
+                    movebutton(bindbutton);
                     setbuttontexts();
                 }
             }
             else 
             {
                 if (vpad.buttonExtra4.justPressed) {
-                    movebutton(touch, vpad.buttonExtra4);
+                    movebutton(vpad.buttonExtra4);
                 }
                 
                 if (vpad.buttonExtra3.justPressed) {
-                    movebutton(touch, vpad.buttonExtra3);
+                    movebutton(vpad.buttonExtra3);
                 }
                 
                 if (vpad.buttonExtra2.justPressed) {
-                    movebutton(touch, vpad.buttonExtra2);
+                    movebutton(vpad.buttonExtra2);
                 }
 
                 if (vpad.buttonExtra1.justPressed) {
-                    movebutton(touch, vpad.buttonExtra1);
+                    movebutton(vpad.buttonExtra1);
                 }
             }
         }
     }
 
-    function movebutton(touch:FlxG.mouse, button:FlxButton)
+    function movebutton(button:UIButton)
     {
-        button.x = touch.x - vpad.buttonUp.width / 2;
-        button.y = touch.y - vpad.buttonUp.height / 2;
+        button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+        button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
         bindbutton = button;
         buttonistouched = true;
     }
