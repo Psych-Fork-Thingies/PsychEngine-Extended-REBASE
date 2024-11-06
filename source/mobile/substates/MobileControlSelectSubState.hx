@@ -246,153 +246,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         {
             changeSelection(1);
         }
-        
-        daChoice = options[Math.floor(curSelected)];
-
-        if (daChoice == 'Pad-Custom')
-        {
-            if (buttonistouched)
-            {
-                if (bindbutton.justReleased && FlxG.mouse.justReleased)
-                {
-                    bindbutton = null;
-                    buttonistouched = false;
-                }
-                else 
-                {
-                    if (!vpad.buttonUp.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonUp;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                    if (!vpad.buttonDown.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonDown;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                    if (!vpad.buttonRight.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonRight;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                    if (!vpad.buttonLeft.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonLeft;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                }
-            }
-            else 
-            {
-                if (vpad.buttonUp.justPressed) {
-                    vpad.buttonUp.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonUp.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonUp;
-                    buttonistouched = true;
-                }
-
-                if (vpad.buttonDown.justPressed) {
-                    vpad.buttonDown.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonDown.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonDown;
-                    buttonistouched = true;
-                }
-
-                if (vpad.buttonRight.justPressed) {
-                    vpad.buttonLeft.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonLeft.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonLeft;
-                    buttonistouched = true;
-                }
-
-                if (vpad.buttonLeft.justPressed) {
-                    vpad.buttonLeft.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonLeft.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonLeft;
-                    buttonistouched = true;
-                }
-            }
-        }
-        if (daChoice == 'Pad-Custom')
-        {
-            if (buttonistouched)
-            {
-                if (bindbutton.justReleased && FlxG.mouse.justReleased)
-                {
-                    bindbutton = null;
-                    buttonistouched = false;
-                }
-                else 
-                {
-                    if (!vpad.buttonExtra4.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonExtra4;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                    if (!vpad.buttonExtra3.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonExtra3;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                    if (!vpad.buttonExtra2.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonExtra2;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                    if (!vpad.buttonExtra1.justPressed) {
-                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                        bindbutton = vpad.buttonExtra1;
-                        buttonistouched = true;
-                        setbuttontexts();
-                    }
-                }
-            }
-            else 
-            {
-                if (vpad.buttonExtra4.justPressed) {
-                    vpad.buttonExtra4.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonExtra4.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonExtra4;
-                    buttonistouched = true;
-                }
-                
-                if (vpad.buttonExtra3.justPressed) {
-                    vpad.buttonExtra3.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonExtra3.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonExtra3;
-                    buttonistouched = true;
-                }
-                
-                if (vpad.buttonExtra2.justPressed) {
-                    vpad.buttonExtra2.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonExtra2.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonExtra2;
-                    buttonistouched = true;
-                }
-
-                if (vpad.buttonExtra1.justPressed) {
-                    vpad.buttonExtra3.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    vpad.buttonExtra3.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonExtra1;
-                    buttonistouched = true;
-                }
-            }
-        }
+        trackbutton(FlxG.mouse);
     }
 
     function changeSelection(change:Int = 0)
@@ -498,6 +352,88 @@ class MobileControlSelectSubState extends MusicBeatSubstate
             leftPozition.visible = true;
             rightPozition.visible = true;
         }
+    }
+
+    function FlxG.mouse(touch:FlxG.mouse)
+    {
+        daChoice = options[Math.floor(curSelected)];
+
+        if (daChoice == 'Pad-Custom')
+        {
+            if (buttonistouched)
+            {
+                if (bindbutton.justReleased && touch.justReleased)
+                {
+                    bindbutton = null;
+                    buttonistouched = false;
+                }
+                else 
+                {
+                    movebutton(touch, bindbutton);
+                    setbuttontexts();
+                }
+            }
+            else 
+            {
+                if (vpad.buttonUp.justPressed) {
+                    movebutton(touch, vpad.buttonUp);
+                }
+
+                if (vpad.buttonDown.justPressed) {
+                    movebutton(touch, vpad.buttonDown);
+                }
+
+                if (vpad.buttonRight.justPressed) {
+                    movebutton(touch, vpad.buttonRight);
+                }
+
+                if (vpad.buttonLeft.justPressed) {
+                    movebutton(touch, vpad.buttonLeft);
+                }
+            }
+        }
+        if (daChoice == 'Pad-Custom')
+        {
+            if (buttonistouched)
+            {
+                if (bindbutton.justReleased && touch.justReleased)
+                {
+                    bindbutton = null;
+                    buttonistouched = false;
+                }
+                else 
+                {
+                    movebutton(touch, bindbutton);
+                    setbuttontexts();
+                }
+            }
+            else 
+            {
+                if (vpad.buttonExtra4.justPressed) {
+                    movebutton(touch, vpad.buttonExtra4);
+                }
+                
+                if (vpad.buttonExtra3.justPressed) {
+                    movebutton(touch, vpad.buttonExtra3);
+                }
+                
+                if (vpad.buttonExtra2.justPressed) {
+                    movebutton(touch, vpad.buttonExtra2);
+                }
+
+                if (vpad.buttonExtra1.justPressed) {
+                    movebutton(touch, vpad.buttonExtra1);
+                }
+            }
+        }
+    }
+
+    function movebutton(touch:FlxG.mouse, button:FlxButton)
+    {
+        button.x = touch.x - vpad.buttonUp.width / 2;
+        button.y = touch.y - vpad.buttonUp.height / 2;
+        bindbutton = button;
+        buttonistouched = true;
     }
 
     function setbuttontexts()
