@@ -253,15 +253,15 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         {
             if (buttonistouched)
             {
-                if (bindbutton.justReleased && touch.justReleased)
+                if (bindbutton.justReleased && FlxG.mouse.justReleased)
                 {
                     bindbutton = null;
                     buttonistouched = false;
                 }
                 else 
                 {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = bindbutton;
                     buttonistouched = true;
                     setbuttontexts();
@@ -270,29 +270,29 @@ class MobileControlSelectSubState extends MusicBeatSubstate
             else 
             {
                 if (vpad.buttonUp.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    vpad.buttonUp.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonUp.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = vpad.buttonUp;
                     buttonistouched = true;
                 }
 
                 if (vpad.buttonDown.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    vpad.buttonDown.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonDown.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = vpad.buttonDown;
                     buttonistouched = true;
                 }
 
                 if (vpad.buttonRight.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = vpad.buttonRight;
+                    vpad.buttonLeft.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonLeft.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    bindbutton = vpad.buttonLeft;
                     buttonistouched = true;
                 }
 
                 if (vpad.buttonLeft.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    vpad.buttonLeft.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonLeft.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = vpad.buttonLeft;
                     buttonistouched = true;
                 }
@@ -309,8 +309,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
                 }
                 else 
                 {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = bindbutton;
                     buttonistouched = true;
                     setbuttontexts();
@@ -319,29 +319,29 @@ class MobileControlSelectSubState extends MusicBeatSubstate
             else 
             {
                 if (vpad.buttonExtra4.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    vpad.buttonExtra4.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonExtra4.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = vpad.buttonExtra4;
                     buttonistouched = true;
                 }
                 
                 if (vpad.buttonExtra3.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    vpad.buttonExtra3.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonExtra3.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = vpad.buttonExtra3;
                     buttonistouched = true;
                 }
                 
                 if (vpad.buttonExtra2.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    vpad.buttonExtra2.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonExtra2.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = vpad.buttonExtra2;
                     buttonistouched = true;
                 }
 
                 if (vpad.buttonExtra1.justPressed) {
-                    button.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    button.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    vpad.buttonExtra3.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    vpad.buttonExtra3.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
                     bindbutton = vpad.buttonExtra1;
                     buttonistouched = true;
                 }
