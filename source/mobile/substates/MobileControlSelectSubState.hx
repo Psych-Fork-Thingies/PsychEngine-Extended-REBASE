@@ -354,7 +354,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         }
     }
 
-    function FlxG.mouse(touch:FlxG.mouse)
+    function trackbutton(touch:FlxG.mouse)
     {
         daChoice = options[Math.floor(curSelected)];
 
