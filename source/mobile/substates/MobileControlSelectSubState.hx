@@ -258,6 +258,37 @@ class MobileControlSelectSubState extends MusicBeatSubstate
                     bindbutton = null;
                     buttonistouched = false;
                 }
+                else 
+                {
+                    if (!vpad.buttonUp.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = vpad.buttonUp;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
+                    if (!vpad.buttonDown.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = vpad.buttonDown;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
+                    if (!vpad.buttonRight.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = vpad.buttonRight;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
+                    if (!vpad.buttonLeft.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = bindbutton;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
+                }
             }
             else 
             {
@@ -289,17 +320,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
                     buttonistouched = true;
                 }
             }
-            if (buttonistouched)
-            {
-                if (!bindbutton.justReleased && !FlxG.mouse.justReleased)
-                {
-                    bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = bindbutton;
-                    buttonistouched = true;
-                    setbuttontexts();
-                }
-            }
         }
         if (daChoice == 'Pad-Custom')
         {
@@ -312,11 +332,34 @@ class MobileControlSelectSubState extends MusicBeatSubstate
                 }
                 else 
                 {
-                    bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = bindbutton;
-                    buttonistouched = true;
-                    setbuttontexts();
+                    if (!vpad.buttonExtra4.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = vpad.buttonExtra4;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
+                    if (!vpad.buttonExtra3.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = vpad.buttonExtra3;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
+                    if (!vpad.buttonExtra2.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = vpad.buttonExtra2;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
+                    if (!vpad.buttonExtra1.justPressed) {
+                        bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                        bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                        bindbutton = vpad.buttonExtra1;
+                        buttonistouched = true;
+                        setbuttontexts();
+                    }
                 }
             }
             else 
