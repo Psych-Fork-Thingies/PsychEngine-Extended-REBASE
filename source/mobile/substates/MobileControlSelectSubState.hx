@@ -258,14 +258,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
                     bindbutton = null;
                     buttonistouched = false;
                 }
-                else 
-                {
-                    bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
-                    bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
-                    bindbutton = bindbutton;
-                    buttonistouched = true;
-                    setbuttontexts();
-                }
             }
             else 
             {
@@ -297,12 +289,23 @@ class MobileControlSelectSubState extends MusicBeatSubstate
                     buttonistouched = true;
                 }
             }
+            if (buttonistouched)
+            {
+                if (!bindbutton.justReleased && !FlxG.mouse.justReleased)
+                {
+                    bindbutton.x = FlxG.mouse.x - vpad.buttonUp.width / 2;
+                    bindbutton.y = FlxG.mouse.y - vpad.buttonUp.height / 2;
+                    bindbutton = bindbutton;
+                    buttonistouched = true;
+                    setbuttontexts();
+                }
+            }
         }
         if (daChoice == 'Pad-Custom')
         {
             if (buttonistouched)
             {
-                if (bindbutton.justReleased && touch.justReleased)
+                if (bindbutton.justReleased && FlxG.mouse.justReleased)
                 {
                     bindbutton = null;
                     buttonistouched = false;
