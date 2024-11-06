@@ -246,7 +246,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         {
             changeSelection(1);
         }
-        trackbutton(FlxG.mouse);
+        trackbutton();
     }
 
     function changeSelection(change:Int = 0)
