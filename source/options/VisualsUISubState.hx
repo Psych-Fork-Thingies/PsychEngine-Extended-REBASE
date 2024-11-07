@@ -75,6 +75,15 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.showNote = true;
 		addOption(option);
 		option.onChange = onChangeNoteSkin;
+		
+		#if (!INDIECROSS_FORCED && INDIECROSS_ASSETS)
+		var option:Option = new Option('Indie Cross Menus',
+			'If checked, Indie Cross Mods not using Custom Menus (if you have any bug disable this).',
+			'IndieCrossMenus',
+			'bool');
+		addOption(option);
+		option.onChange = changeIndieCrossMenus;
+		#end
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
@@ -184,6 +193,14 @@ class VisualsUISubState extends BaseOptionsMenu
 	{
 		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		super.destroy();
+	}
+	
+	function changeIndieCrossMenus()
+	{
+	    if (!TitleState.IndieCrossEnabled && Paths.currentModDirectory.startsWith('Indie Cross'))
+            TitleState.IndieCrossEnabled = true;
+        else if (TitleState.IndieCrossEnabled)
+	        TitleState.IndieCrossEnabled = ClientPrefs.data.IndieCrossMenus;
 	}
 
 	function onChangeFPSCounter()

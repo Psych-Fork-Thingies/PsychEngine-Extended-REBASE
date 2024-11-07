@@ -134,8 +134,15 @@ class OptionsState extends MusicBeatState
 		
 		if (controls.BACK) {
 	     	if (OptionsState.onPlayState) {
-	     	    MusicBeatState.switchState(new PlayState());
+	     	    if (TitleState.IndieCrossEnabled) {
+    	     	    StageData.loadDirectory(PlayState.SONG);
+    				LoadingState.loadAndSwitchState(new PlayState());
+    				FlxG.sound.music.volume = 0;
+	     	    }
+	     	    else {
+				MusicBeatState.switchState(new PlayState());
 				OptionsState.onPlayState = false;
+				}
 			}
 			else if (OptionsState.stateType == 2) {
 			    MusicBeatState.switchState(new FreeplayStateNF());
@@ -143,8 +150,11 @@ class OptionsState extends MusicBeatState
 			} else if (OptionsState.stateType == 1) {
 			    MusicBeatState.switchState(new FreeplayStateNOVA());
 			    OptionsState.stateType = 0;
-			} else
+			} else {
+    			if (TitleState.IndieCrossEnabled)
+    			    FlxG.sound.playMusic(Paths.music('freakyMenu'), 1, true);
     			CustomSwitchState.switchMenus('MainMenu');
+			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 		

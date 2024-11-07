@@ -15,6 +15,7 @@ import shaders.flixel.system.FlxShader;
 import extras.*; //For CustomSwitchState
 import extras.states.*; //Extra States
 import extras.substates.*; //Extra Substates
+import indiecrossmenus.*; //Indie Cross Menus
 
 // 0.7x Support
 import objects.AudioDisplay;

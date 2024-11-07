@@ -58,6 +58,7 @@ class TitleState extends MusicBeatState
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
 
+    public static var IndieCrossEnabled:Bool = false;
 	public static var initialized:Bool = false;
 	public static var inGame:Bool = false;
 	var checkOpenFirst:Bool = false;
@@ -511,6 +512,10 @@ class TitleState extends MusicBeatState
     				if (mustUpdate) {
     					MusicBeatState.switchState(new OutdatedState());
     				} else {
+                		#if (INDIECROSS_ASSETS || INDIECROSS_FORCED)
+                	    if (ClientPrefs.data.IndieCrossMenus && Paths.currentModDirectory.startsWith('Indie Cross')) //I dont have a Better Solution for now
+                	        TitleState.IndieCrossEnabled = true;
+                	    #end
                 	    CustomSwitchState.switchMenus('MainMenu');
     				}
     				closedState = true;
