@@ -23,8 +23,9 @@ class MainMenuStateCROSS extends MusicBeatState
 		super();
 	}
 
-	public static var psychExtendedVersion:String = 'Psych Extended v1.0.0';
+	public static var psychExtendedVersion:String = 'Psych Extended v1.0.0 - Hotfix';
 	public static var psychEngineVersion:String = 'Psych Engine v0.6.3';
+	public static var realPsychEngineVersion:String = 'Psych Engine v0.6.4b';
 	public static var curSelected:Int = 0;
 
 	// var buttonsFlash:FlxSprite = new FlxSprite();
@@ -88,7 +89,7 @@ class MainMenuStateCROSS extends MusicBeatState
 		versionShit.setFormat(Paths.font("Bronx.otf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, psychEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, realPsychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("Bronx.otf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

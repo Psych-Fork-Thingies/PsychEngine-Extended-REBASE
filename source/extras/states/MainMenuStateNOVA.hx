@@ -21,9 +21,10 @@ import openfl.Lib;
 class MainMenuStateNOVA extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
+	public static var realPsychEngineVersion:String = '0.6.4b';
 	public static var novaFlareEngineDataVersion:Float = 1.8;
 	public static var novaFlareEngineVersion:String = '1.1.5 HOTFIX 2'; //1.1.5 -HOTFIX -2 looks too bad
-	public static var PsychExtendedVersion:String = '1.0.0';
+	public static var PsychExtendedVersion:String = '1.0.0 - Hotfix';
 	public static var curSelected:Int = 0;
     public static var saveCurSelected:Int = 0;
     
