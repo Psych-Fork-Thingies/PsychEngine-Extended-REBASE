@@ -236,7 +236,6 @@ class FunkinLua {
 		set('noResetButton', ClientPrefs.data.noReset);
 		set('lowQuality', ClientPrefs.data.lowQuality);
 		set('shadersEnabled', ClientPrefs.data.shaders);
-		set('IndieCrossEnabled', TitleState.IndieCrossEnabled);
 		set('scriptName', scriptName);
 		set('currentModDirectory', Paths.currentModDirectory);
 
@@ -1057,14 +1056,14 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			@:privateAccess
-			//0.7x File Organization Support (Now You Can Play Funkindelix Fully Functional)
+			//Little 0.7x File Organization Support (Now You Can Play Funkindelix Psych 0.7x Port Fully Functional)
     	    if (classVar.startsWith('backend.')) classVar = classVar.replace('backend.', '');
     	    if (classVar.startsWith('objects.')) classVar = classVar.replace('objects.', '');
     	    if (classVar.startsWith('states.')) classVar = classVar.replace('states.', '');
     		
     		//Old ClientPrefs And Custom PauseMenu Support
     		if (variable == 'globalAntialiasing') variable = 'data.antialiasing';
-    		if (classVar == 'ClientPrefs' && !classVar.endsWith('data.')) variable = 'data.' + variable;
+    		if (classVar == 'ClientPrefs' && !classVar.startsWith('data.')) variable = 'data.' + variable;
     		if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			//Normal Code
 			var myClass:Dynamic = classCheck(classVar);
@@ -1087,14 +1086,14 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			@:privateAccess
-			//0.7x File Organization Support (Now You Can Play Funkindelix Fully Functional)
+			//Little 0.7x File Organization Support (Now You Can Play Funkindelix Psych 0.7x Port Fully Functional)
     	    if (classVar.startsWith('backend.')) classVar = classVar.replace('backend.', '');
     	    if (classVar.startsWith('objects.')) classVar = classVar.replace('objects.', '');
     	    if (classVar.startsWith('states.')) classVar = classVar.replace('states.', '');
     		
     		//Old ClientPrefs And Custom PauseMenu Support
     		if (variable == 'globalAntialiasing') variable = 'data.antialiasing';
-    		if (classVar == 'ClientPrefs' && !classVar.endsWith('data.')) variable = 'data.' + variable;
+    		if (classVar == 'ClientPrefs' && !classVar.startsWith('data.')) variable = 'data.' + variable;
     		if (classVar == 'PauseSubState' && ClientPrefs.data.PauseMenuStyle == 'NovaFlare') classVar = 'PauseSubStateNOVA';
 			//Normal Code
 			var killMe:Array<String> = variable.split('.');

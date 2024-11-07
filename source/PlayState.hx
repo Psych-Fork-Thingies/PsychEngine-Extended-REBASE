@@ -98,7 +98,6 @@ class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 48.5;
 	public static var STRUM_X_MIDDLESCROLL = -278;
-	public static var IndieCrossStateType:Int = 0; // 0 = Default, 1 = Main, 2 = Bonus, 3 = Nightmare
 	
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
@@ -3542,9 +3541,7 @@ class PlayState extends MusicBeatState
 		campaignMisses += songMisses;
 		StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
     		
-        if (TitleState.IndieCrossEnabled)
-			Highscore.saveWeekScore('week' + storyWeek, campaignScore, storyDifficulty);
-		else if (SONG.validScore)
+        if (SONG.validScore)
     		Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
         
 		FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
@@ -4219,9 +4216,7 @@ class PlayState extends MusicBeatState
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
     					StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
-                        if (TitleState.IndieCrossEnabled)
-					        Highscore.saveWeekScore('week' + storyWeek, campaignScore, storyDifficulty);
-					    else if (SONG.validScore)
+                        if (SONG.validScore)
     						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 
     					FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;

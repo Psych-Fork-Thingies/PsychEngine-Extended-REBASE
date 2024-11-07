@@ -18,7 +18,6 @@ import TitleState;
     public var MainMenuStyle:String = '1.0';
 	public var touchmenus:Bool = #if UNUSED_TOUCHMENUS true #else false #end;
 	public var Modpack:Bool = false;
-	public var IndieCrossMenus:Bool = #if (INDIECROSS_FORCED || INDIECROSS_ASSETS) true #else false #end;
 	public var wideScreen:Bool = false;
 	public var mobileC:Bool = true; //better than using if mobile
 	#if android public var storageType:String = "EXTERNAL_DATA"; #end
