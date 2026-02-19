@@ -5,7 +5,7 @@
       "type": "git",
       "dir": null,
       "ref": "main",
-      "url": "https://github.com/mcagabe19-stuff/lime-8.2.1"
+      "url": "https://github.com/ArkoseLabsOfficial/lime"
     },
     {
       "name": "openfl",
@@ -17,7 +17,7 @@
       "type": "git",
       "dir": null,
       "ref": "5.6.1",
-      "url": "https://github.com/MobilePorting/flixel"
+      "url": "https://github.com/PsychExtendedThings/flixel"
     },
     {
       "name": "flixel-addons",
@@ -39,14 +39,14 @@
       "type": "git",
       "dir": null,
       "ref": "master",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp"
+      "url": "https://github.com/beihu235/hxcpp"
     },
     {
       "name":"hxCodec",
       "type":"git",
       "dir":null,
       "ref":"main",
-      "url":"https://github.com/Prohack101010/hxCodec-2.6.0-with-MP4Handler.git"
+      "url":"https://github.com/PsychExtendedThings/hxCodec-0.6.3"
     },
     {
       "name": "hxvlc",
@@ -82,7 +82,7 @@
       "type": "git",
       "dir": null,
       "ref": "main",
-      "url": "https://github.com/mcagabe19-stuff/linc_luajit-rewriten"
+      "url": "https://github.com/MRK2009/linc_luajit"
     },
     {
       "name": "flxanimate",
