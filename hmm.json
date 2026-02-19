@@ -39,7 +39,7 @@
       "type": "git",
       "dir": null,
       "ref": "master",
-      "url": "https://github.com/NovaFlare-Engine-haxelib/hxcpp-4.3.2-legacy"
+      "url": "https://github.com/PsychExtendedThings/hxcpp"
     },
     {
       "name":"hxCodec",
